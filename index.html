@@ -1,0 +1,2401 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Latihan Soal Komunikasi Organisasi</title>
+    <style>
+        /* ===== RESET & VARIABEL ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #f5f7fc;
+            --surface: #ffffff;
+            --text: #1e293b;
+            --text-secondary: #475569;
+            --border: #e2e8f0;
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --primary-light: #dbeafe;
+            --success: #16a34a;
+            --success-light: #dcfce7;
+            --danger: #dc2626;
+            --danger-light: #fee2e2;
+            --warning: #f59e0b;
+            --warning-light: #fef3c7;
+            --gray: #94a3b8;
+            --gray-light: #f1f5f9;
+            --shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+            --radius: 12px;
+            --radius-sm: 8px;
+            --transition: 0.25s ease;
+        }
+
+        .dark {
+            --bg: #0f172a;
+            --surface: #1e293b;
+            --text: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --border: #334155;
+            --primary: #3b82f6;
+            --primary-hover: #60a5fa;
+            --primary-light: #1e293b;
+            --success: #22c55e;
+            --success-light: #14532d;
+            --danger: #ef4444;
+            --danger-light: #7f1d1d;
+            --warning: #f59e0b;
+            --warning-light: #713f12;
+            --gray: #64748b;
+            --gray-light: #1e293b;
+            --shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            transition: background var(--transition), color var(--transition);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        #app {
+            max-width: 960px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 24px 28px;
+            margin-bottom: 20px;
+            transition: background var(--transition), box-shadow var(--transition);
+            border: 1px solid var(--border);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 18px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: background var(--transition), transform 0.15s, box-shadow var(--transition);
+            background: var(--gray-light);
+            color: var(--text);
+            text-decoration: none;
+        }
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        .btn:active {
+            transform: scale(0.97);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #fff;
+        }
+        .btn-primary:hover {
+            background: var(--primary-hover);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: #fff;
+        }
+        .btn-success:hover {
+            background: #15803d;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: #fff;
+        }
+        .btn-danger:hover {
+            background: #b91c1c;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid var(--border);
+            color: var(--text);
+        }
+        .btn-outline:hover {
+            background: var(--gray-light);
+        }
+
+        .btn-sm {
+            padding: 4px 12px;
+            font-size: 0.8rem;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 4px;
+        }
+
+        .header-top h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        .header-top h1 small {
+            font-weight: 400;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-left: 8px;
+        }
+
+        .header-stats {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        .header-stats span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--gray-light);
+            border-radius: 99px;
+            overflow: hidden;
+            margin: 12px 0 4px;
+        }
+        .progress-bar .fill {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 99px;
+            transition: width 0.4s ease;
+        }
+
+        .question-number {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--primary);
+            background: var(--primary-light);
+            padding: 2px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        .question-text {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: var(--gray-light);
+            border-radius: var(--radius-sm);
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: background var(--transition), border-color var(--transition), transform 0.15s;
+            font-size: 0.95rem;
+        }
+        .option:hover:not(.disabled) {
+            border-color: var(--primary);
+            transform: translateX(4px);
+        }
+        .option .letter {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--surface);
+            border: 1.5px solid var(--border);
+            font-weight: 700;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+            transition: background var(--transition), border-color var(--transition);
+        }
+        .option .text {
+            flex: 1;
+        }
+
+        .option.correct {
+            border-color: var(--success);
+            background: var(--success-light);
+        }
+        .option.correct .letter {
+            background: var(--success);
+            border-color: var(--success);
+            color: #fff;
+        }
+
+        .option.wrong {
+            border-color: var(--danger);
+            background: var(--danger-light);
+        }
+        .option.wrong .letter {
+            background: var(--danger);
+            border-color: var(--danger);
+            color: #fff;
+        }
+
+        .option.disabled {
+            cursor: default;
+        }
+        .option.disabled:hover {
+            border-color: transparent;
+            transform: none;
+        }
+
+        .option.selected {
+            border-color: var(--primary);
+        }
+
+        .feedback {
+            padding: 14px 18px;
+            border-radius: var(--radius-sm);
+            margin: 12px 0 18px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            display: none;
+        }
+        .feedback.show {
+            display: block;
+        }
+        .feedback.correct {
+            background: var(--success-light);
+            border-left: 4px solid var(--success);
+            color: var(--success);
+        }
+        .feedback.wrong {
+            background: var(--danger-light);
+            border-left: 4px solid var(--danger);
+            color: var(--danger);
+        }
+        .feedback .answer-reveal {
+            font-weight: 600;
+        }
+        .feedback .explanation {
+            margin-top: 6px;
+            font-size: 0.9rem;
+            opacity: 0.9;
+            color: var(--text-secondary);
+        }
+
+        .question-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin: 12px 0 8px;
+        }
+        .question-nav .qn {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-sm);
+            font-size: 0.8rem;
+            font-weight: 600;
+            background: var(--gray-light);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: background var(--transition), transform 0.15s;
+            border: 1.5px solid transparent;
+        }
+        .question-nav .qn:hover {
+            transform: scale(1.05);
+        }
+        .question-nav .qn.active {
+            border-color: var(--primary);
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+        .question-nav .qn.answered-correct {
+            background: var(--success);
+            color: #fff;
+        }
+        .question-nav .qn.answered-wrong {
+            background: var(--danger);
+            color: #fff;
+        }
+        .question-nav .qn.current {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .setup-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin: 16px 0;
+        }
+        .setup-grid label {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+        .setup-grid select,
+        .setup-grid input {
+            padding: 8px 12px;
+            border-radius: var(--radius-sm);
+            border: 1.5px solid var(--border);
+            background: var(--surface);
+            color: var(--text);
+            font-size: 0.9rem;
+            transition: border var(--transition);
+        }
+        .setup-grid select:focus,
+        .setup-grid input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .setup-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .mode-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin: 12px 0 16px;
+        }
+        .mode-tabs .btn {
+            flex: 1;
+            min-width: 100px;
+            justify-content: center;
+        }
+        .mode-tabs .btn.active-mode {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .review-item {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+        .review-item:last-child {
+            border-bottom: none;
+        }
+        .review-item .r-num {
+            font-weight: 700;
+            min-width: 40px;
+            font-size: 0.9rem;
+        }
+        .review-item .r-q {
+            flex: 1;
+            font-size: 0.9rem;
+        }
+        .review-item .r-answer {
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        .review-item .r-answer.correct {
+            color: var(--success);
+        }
+        .review-item .r-answer.wrong {
+            color: var(--danger);
+        }
+
+        .review-filter {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        /* ===== QRIS STYLING ===== */
+        .qris-section {
+            margin-top: 24px;
+            padding: 24px 20px 20px;
+            border-radius: var(--radius);
+            background: linear-gradient(145deg, var(--surface), var(--gray-light));
+            border: 2px solid var(--border);
+            text-align: center;
+            transition: border-color var(--transition);
+        }
+        .qris-section:hover {
+            border-color: var(--primary);
+        }
+
+        .qris-section .qris-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            margin-bottom: 14px;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .qris-section .qris-title .icon {
+            font-size: 1.3rem;
+        }
+
+        .qris-section .qris-image-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+            padding: 8px;
+            background: #fff;
+            border-radius: var(--radius-sm);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            max-width: 220px;
+            margin-left: auto;
+            margin-right: auto;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .qris-section .qris-image-wrapper:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+        }
+
+        .qris-section .qris-image {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-width: 200px;
+            border-radius: calc(var(--radius-sm) - 2px);
+            background: #fff;
+        }
+
+        .qris-section .qris-divider {
+            width: 60px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 99px;
+            margin: 10px auto 12px;
+            opacity: 0.4;
+        }
+
+        .qris-section .qris-caption {
+            margin-top: 6px;
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: 1px;
+        }
+        .qris-section .qris-caption .highlight {
+            background: var(--primary-light);
+            padding: 2px 12px;
+            border-radius: 20px;
+        }
+        .qris-section .qris-sub {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+            font-weight: 500;
+        }
+
+        @media (max-width: 640px) {
+            .qris-section {
+                padding: 18px 14px 16px;
+                margin-top: 18px;
+            }
+            .qris-section .qris-image-wrapper {
+                max-width: 160px;
+            }
+            .qris-section .qris-image {
+                max-width: 140px;
+            }
+            .qris-section .qris-caption {
+                font-size: 1.05rem;
+            }
+            .qris-section .qris-title {
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .qris-section .qris-image-wrapper {
+                max-width: 130px;
+                padding: 6px;
+            }
+            .qris-section .qris-image {
+                max-width: 110px;
+            }
+            .qris-section .qris-caption {
+                font-size: 0.95rem;
+            }
+        }
+
+        /* ===== RESPONSIF ===== */
+        @media (max-width: 640px) {
+            body {
+                padding: 12px;
+            }
+            .card {
+                padding: 16px;
+            }
+            .header-top h1 {
+                font-size: 1.2rem;
+            }
+            .header-stats {
+                font-size: 0.8rem;
+                gap: 10px;
+            }
+            .question-text {
+                font-size: 0.95rem;
+            }
+            .option {
+                font-size: 0.9rem;
+                padding: 10px 14px;
+            }
+            .setup-grid {
+                grid-template-columns: 1fr;
+            }
+            .mode-tabs .btn {
+                min-width: 60px;
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+            .question-nav .qn {
+                width: 32px;
+                height: 32px;
+                font-size: 0.7rem;
+            }
+        }
+
+        /* ===== UTILITY ===== */
+        .flex-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .mt-12 {
+            margin-top: 12px;
+        }
+        .mb-8 {
+            margin-bottom: 8px;
+        }
+        .hidden {
+            display: none !important;
+        }
+        .text-center {
+            text-align: center;
+        }
+
+        .result-score {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+        .result-detail {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .scroll-x {
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 1.4rem;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+        .theme-toggle:hover {
+            background: var(--gray-light);
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+
+        <!-- ===== HEADER ===== -->
+        <div class="card">
+            <div class="header-top">
+                <h1>📘 Komunikasi Organisasi <small>135 Soal</small></h1>
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+                    <span class="header-stats">
+                        <span id="progressText">0/0</span>
+                        <span>|</span>
+                        <span>✅ <span id="correctCount">0</span></span>
+                        <span>❌ <span id="wrongCount">0</span></span>
+                        <span>🎯 <span id="scorePercent">0%</span></span>
+                    </span>
+                    <button class="theme-toggle" id="themeToggle" title="Mode Gelap">🌙</button>
+                </div>
+            </div>
+            <div class="progress-bar">
+                <div class="fill" id="progressFill" style="width:0%"></div>
+            </div>
+        </div>
+
+        <!-- ===== SETUP ===== -->
+        <div class="card" id="setupPanel">
+            <div class="card-header">
+                <span class="card-title">⚙️ Pengaturan Latihan</span>
+                <span style="font-size:0.85rem;color:var(--text-secondary);">Total soal: <strong id="totalSoalDisplay">135</strong></span>
+            </div>
+
+            <div class="mode-tabs" id="modeTabs">
+                <button class="btn active-mode" data-mode="all">📚 Semua Soal</button>
+                <button class="btn" data-mode="count">🔢 Pilih Jumlah</button>
+                <button class="btn" data-mode="range">📏 Rentang</button>
+                <button class="btn" data-mode="pick">☑️ Pilih Tertentu</button>
+                <button class="btn" data-mode="random">🎲 Acak</button>
+            </div>
+
+            <div id="modeOptions"></div>
+
+            <div class="setup-actions">
+                <button class="btn btn-primary" id="startBtn">🚀 Mulai Latihan</button>
+                <button class="btn btn-outline" id="resetBtn">🔄 Mulai Ulang</button>
+            </div>
+
+            <div style="margin-top:12px;font-size:0.85rem;color:var(--text-secondary);">
+                💡 Pilih mode lalu klik "Mulai Latihan"
+            </div>
+            <div style="margin-top:8px;">
+                <label style="display:flex;align-items:center;gap:8px;font-size:0.9rem;cursor:pointer;">
+                    <input type="checkbox" id="examModeCheck">
+                    🎯 Mode Ujian (hasil & pembahasan di akhir)
+                </label>
+            </div>
+
+            <!-- ===== QRIS SECTION ===== -->
+            <div class="qris-section">
+                <div class="qris-title">
+                    <span class="icon">💳</span> Dukung Perjalanan Ibadah
+                </div>
+                <div class="qris-image-wrapper">
+                    <img src="IMG_2166.PNG" alt="QRIS Gasan Naik Haji" class="qris-image" onerror="this.src='https://placehold.co/200x200/2563eb/ffffff?text=QRIS+Donasi';" />
+                </div>
+                <div class="qris-divider"></div>
+                <div class="qris-caption">
+                    <span class="highlight">Gasan Naik Haji</span>
+                </div>
+                <div class="qris-sub">🔹 Scan QRIS untuk berdonasi 🔹</div>
+            </div>
+        </div>
+
+        <!-- ===== PANEL SOAL ===== -->
+        <div class="card hidden" id="questionPanel">
+            <div class="flex-between mb-8">
+                <div>
+                    <span class="question-number" id="qNumDisplay">Soal 1</span>
+                    <span style="margin-left:8px;font-size:0.85rem;color:var(--text-secondary);" id="qIndexDisplay">1 / 135</span>
+                </div>
+                <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                    <button class="btn btn-sm btn-outline" id="prevBtn">◀ Sebelum</button>
+                    <button class="btn btn-sm btn-outline" id="nextBtn">Berikut ▶</button>
+                </div>
+            </div>
+
+            <div class="question-text" id="questionText">Loading...</div>
+
+            <div class="options" id="optionsContainer"></div>
+
+            <div class="feedback" id="feedback">
+                <div class="answer-reveal" id="feedbackAnswer"></div>
+                <div class="explanation" id="feedbackExplanation"></div>
+            </div>
+
+            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;">
+                <button class="btn btn-success" id="nextQuestionBtn" disabled>➡️ Soal Berikutnya</button>
+                <button class="btn btn-outline" id="reviewToggleBtn">📋 Review</button>
+                <button class="btn btn-outline" id="restartFromQuestionBtn" style="color:var(--danger);border-color:var(--danger);">🔄 Mulai Ulang Latihan</button>
+            </div>
+
+            <div class="scroll-x mt-12">
+                <div class="question-nav" id="questionNav"></div>
+            </div>
+        </div>
+
+        <!-- ===== PANEL REVIEW ===== -->
+        <div class="card hidden" id="reviewPanel">
+            <div class="card-header">
+                <span class="card-title">📋 Review Jawaban</span>
+                <button class="btn btn-sm btn-outline" id="closeReviewBtn">✕ Tutup</button>
+            </div>
+            <div class="review-filter">
+                <button class="btn btn-sm btn-outline active-review-filter" data-filter="all">Semua</button>
+                <button class="btn btn-sm btn-outline" data-filter="correct">✅ Benar</button>
+                <button class="btn btn-sm btn-outline" data-filter="wrong">❌ Salah</button>
+                <button class="btn btn-sm btn-outline" data-filter="unanswered">⬜ Belum</button>
+            </div>
+            <div id="reviewList"></div>
+        </div>
+
+        <!-- ===== PANEL HASIL ===== -->
+        <div class="card hidden" id="resultPanel">
+            <div class="text-center">
+                <div style="font-size:3rem;margin-bottom:8px;">🏆</div>
+                <div class="result-score" id="finalScore">0%</div>
+                <div class="result-detail">
+                    ✅ Benar: <span id="finalCorrect">0</span> &nbsp;|&nbsp; ❌ Salah: <span id="finalWrong">0</span>
+                </div>
+                <div style="margin-top:16px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+                    <button class="btn btn-primary" id="retryWrongBtn">🔁 Kerjakan Ulang Soal Salah</button>
+                    <button class="btn btn-outline" id="resultResetBtn">🔄 Mulai Ulang</button>
+                </div>
+                <div style="margin-top:20px;">
+                    <button class="btn btn-outline" id="resultReviewBtn">📋 Lihat Review</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // ============================================================
+        //  1. DATA SOAL (135 SOAL LENGKAP - KOMUNIKASI ORGANISASI)
+        // ============================================================
+        const MASTER_QUESTIONS = [
+            {
+                id: 1,
+                question: "Dalam model resolusi konflik, langkah yang meletakkan dasar-dasar pengertian yang sebenarnya dan menghasilkan tinjauan dasar untuk meninjau persoalan guna memahami persoalan ialah ...",
+                options: ["pemeriksaan persoalan", "sikap terhadap konflik", "penyesuaian persoalan", "pemahaman persoalan"],
+                correct: 0,
+                explanation: "Pemeriksaan persoalan meletakkan dasar pengertian sebenarnya dan memberikan tinjauan dasar untuk memahami persoalan konflik."
+            },
+            {
+                id: 2,
+                question: "Menurut Deborah Borisoff dan David A. Victor, pada dasarnya solusi konflik yang efektif dapat dicapai dengan dua model pendekatan, yaitu model ...",
+                options: ["perundingan dan resolusi konflik", "perundingan dan kesepakatan", "resolusi konflik dan kesepakatan", "perundingan, resolusi konflik, dan kesepakatan"],
+                correct: 0,
+                explanation: "Dua model pendekatan utama menurut Deborah Borisoff & David A. Victor adalah perundingan (negotiation) dan resolusi konflik (conflict resolution)."
+            },
+            {
+                id: 3,
+                question: "Hasil dari perundingan distributif yang dilakukan dalam intervensi konflik ialah ...",
+                options: ["kompromi, timbal balik dan hasil menang/kalah", "solusi kreatif, adil, dan menguntungkan", "timbal balik, responsif, dan terukur", "adil, imbang, dan timbal balik"],
+                correct: 0,
+                explanation: "Perundingan distributif berorientasi pada pembagian sumber daya yang terbatas sehingga menghasilkan kompromi, timbal balik, dan situasi menang/kalah (win-lose)."
+            },
+            {
+                id: 4,
+                question: "Menurut Robert Blake dan Jane S. Mouton, terdapat lima gaya atau preferensi perilaku atau strategi yang dapat dipilih untuk berkonflik, yaitu kompetisi, kolaborasi, menghindar, akomodasi, dan ...",
+                options: ["permusuhan", "kompromi", "berkelompok", "individual"],
+                correct: 1,
+                explanation: "5 Gaya Manajemen Konflik Blake & Mouton: Kompetisi (forcing), Kolaborasi, Menghindar (avoiding), Akomodasi (accommodating), dan Kompromi (compromising)."
+            },
+            {
+                id: 5,
+                question: "Gaya manajemen konflik dimana terdapat kecenderungan untuk menenangkan lawan konflik disebut ...",
+                options: ["gaya menghindar", "gaya akomodasi", "gaya kompromi", "gaya kompetisi"],
+                correct: 1,
+                explanation: "Gaya akomodasi menempatkan kebutuhan pihak lain di atas kebutuhan sendiri guna menenangkan atau memelihara hubungan."
+            },
+            {
+                id: 6,
+                question: "Gaya manajemen konflik dimana kedua belah pihak mengalah dan menerima sedikit sehingga tidak ada yang kalah dan menang, disebut ...",
+                options: ["gaya menghindar", "gaya akomodasi", "gaya kompromi", "gaya kompetisi"],
+                correct: 2,
+                explanation: "Gaya kompromi menuntut setiap pihak mengorbankan sebagian tuntutannya demi mencapai kesepakatan tengah."
+            },
+            {
+                id: 7,
+                question: "Kidung ditugaskan mempresentasikan laporan penting. Jika berhasil berpotensi mendapat apresiasi, tetapi ia cemas takut salah dan dianggap tidak kompeten. Ia berpikir apakah pantas melakukan presentasi namun juga bisa saja melakukan kesalahan. Jenis konflik tersebut masuk ke dalam konflik intrapersonal dengan pola ...",
+                options: ["pola konflik mendekat mendekat", "pola konflik menghindar menghindar", "pola konflik mendekat menghindar", "pola konflik mendekat menolak"],
+                correct: 2,
+                explanation: "Pola mendekat-menghindar (approach-avoidance) terjadi ketika satu situasi memiliki konsekuensi positif (apresiasi) sekaligus negatif (takut salah) secara bersamaan."
+            },
+            {
+                id: 8,
+                question: "Gya diminta ikut proyek presentasi. Jika ikut, ia takut performa jelek. Jika menolak, ia khawatir ditegur dan dianggap tidak mau berkembang. Gya akhirnya menunda dan menghindari pembicaraan soal proyek. Jenis konflik tersebut masuk ke dalam konflik intrapersonal dengan pola ...",
+                options: ["pola konflik mendekat mendekat", "pola konflik menghindar menghindar", "pola konflik mendekat menghindar", "pola konflik mendekat menolak"],
+                correct: 1,
+                explanation: "Pola menghindar-menghindar (avoidance-avoidance) terjadi saat individu harus memilih di antara dua opsi yang sama-sama dihindari/dihindari kerugiannya."
+            },
+            {
+                id: 9,
+                question: "Jenis-jenis konflik diberi nama menurut tingkat hubungan dan konteks konflik dalam organisasi, yaitu konflik ...",
+                options: ["intrapersonal, interpersonal, kelompok, maupun organisasi", "rendah, konflik sedang, dan konflik tajam", "laten dan konflik manifes", "jangka pendek, jangka menengah, dan jangka panjang"],
+                correct: 0,
+                explanation: "Berdasarkan tingkatan hubungan/konteks: intrapersonal (diri sendiri), interpersonal (antarindividu), kelompok (intragroup/intergroup), dan organisasi."
+            },
+            {
+                id: 10,
+                question: "Sumber konflik yang dikarenakan ketidakjelasan wilayah kewenangan dan tanggung jawab disebut dengan ...",
+                options: ["legalitas informal", "yurisdiksi kabur", "legalitas kabur", "yurisdiksi informal"],
+                correct: 1,
+                explanation: "Yurisdiksi kabur (jurisdictional ambiguity) terjadi ketika batas-batas wewenang dan tugas antardivisi/individu tidak terdefinisi secara jelas."
+            },
+            {
+                id: 11,
+                question: "Sumber konflik berupa tekanan situasi dapat disebabkan adanya hambatan komunikasi yang bersifat ...",
+                options: ["kelompok dan organisasi", "internal dan eksternal", "personal maupun organisasi", "personal dan internal"],
+                correct: 2,
+                explanation: "Hambatan komunikasi pencetus tekanan situasi dapat timbul dari aspek personal individu maupun aspek sistemil/organisasi."
+            },
+            {
+                id: 12,
+                question: "Faktor-faktor yang mendorong terjadinya konflik dalam organisasi pada dasarnya dapat dimasukkan dalam dua kategori, yaitu kategori tekanan ...",
+                options: ["situasi dan ketergantungan hubungan", "situasi dan pekerjaan", "pekerjaan dan ketergantungan hubungan", "situasi, pekerjaan, dan ketergantungan"],
+                correct: 0,
+                explanation: "Kategori pendorong utama konflik meliputi tekanan situasi dan ketergantungan hubungan kerja antardivisi."
+            },
+            {
+                id: 13,
+                question: "Konflik adalah interaksi sosial di antara dua pihak yang membentuk sebuah proses dengan episode-episode yang terangkai sebagai tahapan-tahapan yang berlangsung secara berurutan, yaitu konflik laten, konflik terpersepsi dan ...",
+                options: ["konflik dirasakan", "konflik terbuka", "buntut konflik", "konflik tertutup"],
+                correct: 0,
+                explanation: "Tahapan episode konflik Pondy: Latent conflict -> Perceived conflict -> Felt conflict (konflik dirasakan) -> Manifest conflict -> Conflict aftermath."
+            },
+            {
+                id: 14,
+                question: "Ada beberapa tahapan konflik, salah satunya adalah konflik terpersepsi. Jika konflik terpersepsi menimpa seseorang dan menjadi pengalaman pribadi, maka selanjutnya konflik tersebut berubah menjadi ...",
+                options: ["konflik laten", "konflik dirasakan", "konflik terbuka", "buntut konflik"],
+                correct: 1,
+                explanation: "Setelah dikognisi/disadari (terpersepsi), kecemasan atau kecemburuan personal mengubahnya menjadi felt conflict (konflik dirasakan)."
+            },
+            {
+                id: 15,
+                question: "Konflik yang muncul jika individu yang saling berinteraksi secara independen sadar mengenai adanya perbedaan khususnya mengenai peran & hubungan. Konflik tersebut termasuk dalam tahapan proses episode konflik yang disebut ...",
+                options: ["konflik terpersepsi", "konflik laten", "konflik terbuka", "konflik dirasakan"],
+                correct: 0,
+                explanation: "Kesadaran objektif akan adanya ketidakcocokan peran/tujuan dinamakan Perceived Conflict (konflik terpersepsi)."
+            },
+            {
+                id: 16,
+                question: "Tim pemasaran menolak kampanye divisi analitik karena dianggap tidak sesuai brand. Setelah diskusi, divisi analitik menunjukkan kampanye bisa disesuaikan. Akhirnya dibuat konsep baru: versi A untuk segmen premium, versi B untuk masyarakat luas. Konflik tersebut termasuk pandangan interaksionis dalam menyikapi konflik, yaitu ...",
+                options: ["mencegah konflik yang lebih besar", "menciptakan iklim keterbukaan & adaptasi", "memperjelas masalah & tujuan yang harus dicapai", "mendorong perubahan & kreasi peluang baru"],
+                correct: 3,
+                explanation: "Pandangan interaksionis melihat konflik yang dikelola baik mampu menjadi katalisator bagi inovasi, perubahan, dan peluang baru."
+            },
+            {
+                id: 17,
+                question: "Konflik dianggap sebagai peristiwa yang tidak terelakkan dalam organisasi. Tugas manajemen bukan menghindari atau meniadakan konflik, melainkan mengelola konflik agar diperoleh solusi positif. Ada dua sikap terhadap konflik, yaitu sikap ...",
+                options: ["aktif dan sikap pasif", "positif dan negatif", "destruktif dan konstruktif", "kritis dan interpretatif"],
+                correct: 1,
+                explanation: "Sikap terhadap konflik dikategorikan dalam pandangan positif (fungsional) dan pandangan negatif (disfungsional)."
+            },
+            {
+                id: 18,
+                question: "Rasyd adalah koordinator proyek. Saat terjadi perbedaan pendapat dengan tim desain, beberapa anggota mulai menahan informasi yang berpotensi terjadinya konflik. Akibatnya laporan kepada Manajer tidak sepenuhnya sesuai fakta. Konflik tersebut termasuk pandangan tradisional dalam menyikapi konflik, yaitu ...",
+                options: ["mengganggu kinerja organisasi", "membuat stress di lingkungan kerja", "mengacaukan persoalan dengan kepribadian", "menghambat komunikasi yang jujur & akurat"],
+                correct: 3,
+                explanation: "Pandangan tradisional menekankan efek merusak konflik seperti tersumbatnya komunikasi yang jujur, terbuka, dan akurat."
+            },
+            {
+                id: 19,
+                question: "Kotler dan Schlesinger (1979), menemukan strategi efektif dalam menangani resistensi karyawan kecuali ...",
+                options: ["edukasi & komunikasi", "koordinasi", "paksaan", "negosiasi"],
+                correct: 1,
+                explanation: "6 Strategi Kotter & Schlesinger: Edukasi & Komunikasi, Partisipasi & Keterlibatan, Fasilitasi & Dukungan, Negosiasi & Kesepakatan, Manipulasi & Kooptasi, serta Paksaan Eksplisit/Implisit. 'Koordinasi' tidak termasuk."
+            },
+            {
+                id: 20,
+                question: "Resistensi karyawan adalah sumber utama dari kegagalan inovasi dalam organisasi. Resistensi karyawan pada dasarnya muncul dari dua sumber, yaitu ...",
+                options: ["ketakutan terhadap ketidakmampuan menggunakan inovasi dan ketakutan terhadap inovasi yang menimbulkan ketidakpastian masa depan", "ketakutan terhadap ketidakmampuan menggunakan inovasi dan ketakutan kehilangan status quo", "ketakutan terhadap ketidakpastian masa depan dan ketakutan kehilangan status quo", "ketakutan persaingan kerja dan ketakutan kehilangan pendapatan"],
+                correct: 0,
+                explanation: "Dua sumber utama resistensi: ketakutan akan rasa tidak mampu menguasai inovasi dan kecemasan akan ketidakpastian dampak masa depan."
+            },
+            {
+                id: 21,
+                question: "Kotter dan Schlesinger menemukan strategi efektif untuk menangani resistensi karyawan terhadap inovasi, antara lain ...",
+                options: ["edukasi & komunikasi, partisipasi & keterlibatan, serta manipulasi & kooptasi", "edukasi & komunikasi dan partisipasi saja", "partisipasi & keterlibatan saja", "manipulasi & kooptasi saja"],
+                correct: 0,
+                explanation: "Ketiga poin (Edukasi-komunikasi, partisipasi-keterlibatan, manipulasi-kooptasi) merupakan bagian dari strategi Kotter & Schlesinger."
+            },
+            {
+                id: 22,
+                question: "Model proses keputusan inovasi menggambarkan proses adopsi inovasi sebagai rangkaian strategi komunikasi. Dalam rangkaian strategi komunikasi terdapat proses penerapan dan pelaksanaan inovasi sehingga karyawan mendapatkan peneguhan sehingga penerapan inovasi berlanjut menjadi praktik sehari-hari. Rangkaian strategi komunikasi tersebut disebut ...",
+                options: ["persuasi", "implementasi", "konfirmasi", "pengetahuan"],
+                correct: 2,
+                explanation: "Tahap konfirmasi (confirmation) terjadi ketika pengguna mencari peneguhan atas keputusan inovasi yang telah diimplementasikan."
+            },
+            {
+                id: 23,
+                question: "Istilah inovasi secara sederhana diberi pengertian sebagai ...",
+                options: ["penemuan hal-hal yang dianggap baru", "pengadopsian ide atau perilaku baru oleh organisasi", "pengabdosian teknologi terapan", "penemuan ide dan perangkat baru"],
+                correct: 0,
+                explanation: "Secara mendasar, inovasi diartikan sebagai pengenalan atau penemuan hal-hal yang dipersepsikan baru oleh individu atau sistem."
+            },
+            {
+                id: 24,
+                question: "Faktor-faktor pendukung dan penghambat internal organisasi terhadap inovasi adalah ...",
+                options: ["kemudahan sumber daya & struktur organisasi", "pengetahuan tentang inovasi & akuntabilitas eksternal", "ketersediaan inovasi & keahlian teknis", "struktur birokrasi & iklim politik"],
+                correct: 0,
+                explanation: "Internal organisasi sangat dipengaruhi oleh ketersediaan/kemudahan akses sumber daya serta fleksibilitas struktur organisasi."
+            },
+            {
+                id: 25,
+                question: "Proses perubahan organisasi yang efektif menurut Lewin terdiri atas tiga fase, yaitu fase pencairan kebekuan, fase gerakan perubahan, dan fase ...",
+                options: ["pengembangan gerakan", "pembekuan kembali", "pemilahan", "pembuangan"],
+                correct: 1,
+                explanation: "3 Fase Perubahan Lewin: Unfreezing (pencairan kebekuan), Moving/Changing (pergerakan), dan Refreezing (pembekuan kembali)."
+            },
+            {
+                id: 26,
+                question: "Rumpang kinerja menjadi salah satu faktor penyebab terjadinya perubahan organisasi dan menjadi bukti kurang pekanya jajaran manajemen terhadap gejala negatif. Berikut langkah-langkah untuk mengatasi rumpang kinerja, kecuali ...",
+                options: ["perubahan sistem", "reorganisasi unit kerja", "pengembangan organisasi", "perubahan anggota tim"],
+                correct: 3,
+                explanation: "Langkah penanganan rumpang kinerja mencakup perbaikan sistem, reorganisasi, dan pengembangan organisasi (OD). Mengganti anggota tim bukanlah langkah solusi struktural."
+            },
+            {
+                id: 27,
+                question: "Beberapa situasi disebut sebagai faktor penyebab terjadinya perubahan organisasi. Faktor tersebut antara lain ...",
+                options: ["salah kelola, kebetulan, dan sistemik", "salah kelola dan kebetulan saja", "faktor sistemik saja", "persaingan pasar dan iklim politik saja"],
+                correct: 0,
+                explanation: "Perubahan organisasi dipicu oleh kombinasi salah kelola manajerial, peristiwa tak terduga (kebetulan), serta tuntutan perubahan sistemik."
+            },
+            {
+                id: 28,
+                question: "Aplikasi dari proses perubahan yaitu melalui tiga langkah ...",
+                options: ["perencanaan (planning), pembelajaran (learning), dan evaluasi (evaluation)", "perencanaan (planning), pergerakan (moving), dan evaluasi (evaluation)", "pencairan (unfreezing), pergerakan (moving), dan pembekuan (freezing)", "pencairan (unfreezing), pembelajaran (learning), dan evaluasi (evaluation)"],
+                correct: 2,
+                explanation: "Langkah aplikasi perubahan Lewin: Unfreezing, Moving, dan Refreezing."
+            },
+            {
+                id: 29,
+                question: "Inti dari model perubahan transformasi (model of transformative change) yang dikemukakan oleh Schein, yaitu ...",
+                options: ["proses pengaturan ulang budaya", "proses mendaur ulang budaya", "proses penghapusan dan pembelajaran kembali budaya", "proses menumbuhkan kembali nilai-nilai budaya"],
+                correct: 2,
+                explanation: "Schein menekankan unlearning (penghapusan kebiasaan lama) dan relearning (pembelajaran nilai/budaya baru)."
+            },
+            {
+                id: 30,
+                question: "Demi kelangsungan hidup organisasi, terkadang dituntut melakukan perubahan terhadap budaya yang telah berlangsung dalam organisasi. Langkah perubahan budaya tersebut pada dasarnya adalah pembelajaran melalui ...",
+                options: ["pengalaman sehari-hari", "peniruan suri teladan pemimpin", "lompatan studi lanjut", "peniruan keberhasilan organisasi lain"],
+                correct: 0,
+                explanation: "Pembelajaran budaya paling efektif tertanam secara konsisten melalui interaksi dan pengalaman praktis sehari-hari."
+            },
+            {
+                id: 31,
+                question: "Demi memelihara budaya yang kuat, organisasi membina seluruh karyawan melalui berbagai tindakan, salah satunya menghadirkan sosok pahlawan sebagai wujud kekuatan budaya. Pahlawan memiliki peran sentral dalam kehidupan budaya karena ...",
+                options: ["merupakan nilai fundamental dalam misi dan strategi organisasi", "bagian dari sejarah yang dipahami anggota organisasi", "sumber motivasi, keajaiban, acuan, kekuatan saat organisasi kesulitan", "serangkaian perilaku ritual dalam peneguhan nilai-nilai bersama"],
+                correct: 2,
+                explanation: "Sosok pahlawan budaya (heroes) melambangkan acuan ideal, pemberi inspirasi, dan motivasi moral saat organisasi menghadapi tantangan berat."
+            },
+            {
+                id: 32,
+                question: "Secara garis besar, penguat budaya organisasi menjadi kuat melalui ...",
+                options: ["pengembangan tradisi, sosialisasi, dan pemeliharaan nilai-nilai", "pengembangan tradisi dan sosialisasi saja", "pemeliharaan nilai-nilai saja", "penerapan instruksi kepemimpinan saja"],
+                correct: 0,
+                explanation: "Budaya organisasi diperkuat secara menyeluruh melalui pembentukan tradisi, sosialisasi intensif karyawan baru, dan pemeliharaan nilai."
+            },
+            {
+                id: 33,
+                question: "Pemelihara budaya organisasi akan menjadi kuat karena adanya pembinaan bagi seluruh karyawan melalui berbagai tindakan, salah satunya merumuskan nilai-nilai fundamental budaya organisasi ke dalam misi & strategi. Nilai budaya tersebut merupakan bagian dari nilai filosofi dalam meraih sukses, artinya ...",
+                options: ["nilai budaya menjadi semangat dalam mencapai tujuan", "nilai budaya menjadi strategi organisasi agar karyawan taat aturan", "nilai budaya menjadi pola dalam membentuk budaya organisasi", "nilai budaya menjadi petunjuk arah & pedoman kerja karyawan"],
+                correct: 3,
+                explanation: "Nilai filosofis budaya bertindak sebagai kompas panduan (petunjuk arah & pedoman kerja) bagi perilaku harian setiap individu."
+            },
+            {
+                id: 34,
+                question: "Dampak budaya organisasi pada kehidupan organisasi dapat dilihat pada tujuh pola kegiatan, salah satunya ialah ...",
+                options: ["pembuatan keputusan", "menentukan strategi", "pemberian reward", "pembuatan kebijakan"],
+                correct: 0,
+                explanation: "Salah satu manifestasi utama budaya organisasi mempengaruhi bagaimana proses pembuatan keputusan (decision making) dijalankan."
+            },
+            {
+                id: 35,
+                question: "Dampak budaya organisasi secara sistematis tergambar dalam Model 7-S yang dikembangkan McKinsey & Company. Dampak sistematis terjadi karena budaya ditempatkan di posisi sentral sebagai nilai-nilai ...",
+                options: ["bersama yang berfungsi sebagai nilai-nilai supraordinat", "bersama yang berfungsi sebagai nilai-nilai superior", "eksklusif yang berfungsi sebagai nilai-nilai supraordinat", "eksklusif yang berfungsi sebagai nilai-nilai superior"],
+                correct: 0,
+                explanation: "Dalam Model 7-S McKinsey, Shared Values berada di pusat sebagai nilai supraordinat yang menjiwai 6 elemen lainnya."
+            },
+            {
+                id: 36,
+                question: "Budaya kuat atau budaya lemah mempunyai pengaruh besar pada organisasi. Budaya kuat, menurut Deal dan Kennedy, mempunyai pengaruh pada pencapaian tujuan dan ...",
+                options: ["perencanaan atau keberanian dan keuletan karyawan", "morale atau keberanian dan semangat karyawan", "perencanaan atau kepuasan dan semangat karyawan", "morale atau kepuasan dan semangat karyawan"],
+                correct: 3,
+                explanation: "Menurut Deal & Kennedy, budaya yang kuat berdampak langsung pada peningkatkan morale (semangat kerja) dan kepuasan karyawan."
+            },
+            {
+                id: 37,
+                question: "Dalam sejarah & tradisi organisasi, organisasi hidup dalam lingkungan sosial, fisik, dan rentang waktu, artinya ...",
+                options: ["dalam membentuk budaya organisasi didasarkan pada kepercayaan, nilai & asumsi", "organisasi memiliki sejarah yang penuh dengan aneka pengalaman", "pemimpin harus selalu memperhatikan, mengukur & mengontrol budaya organisasi", "organisasi memiliki pengajaran, suri teladan dan pelatihan dalam mengenalkan budaya organisasi"],
+                correct: 1,
+                explanation: "Eksistensi dalam rentang waktu bermakna organisasi senantiasa mengumpulkan rekam jejak sejarah dan aneka pengalaman kolektif."
+            },
+            {
+                id: 38,
+                question: "Sumber-sumber kekuatan yang dipercayai memiliki pengaruh besar pada pembentukan budaya organisasi, salah satunya ialah ...",
+                options: ["kesamaan cara pandang", "kepemimpinan", "kebersamaan", "ekspektasi"],
+                correct: 1,
+                explanation: "Kepemimpinan (leadership) adalah penggerak utama paling dominan dalam membentuk dan membentuk arah budaya organisasi."
+            },
+            {
+                id: 39,
+                question: "Edgar Schein dalam buku Organizational Culture and Leadership mengungkapkan peran kepemimpinan adalah faktor pembentuk budaya organisasi, artinya ...",
+                options: ["pemimpin organisasi yang tegas umumnya mampu membentuk budaya dan melanjutkannya", "para pendiri atau pemimpin datang untuk mengelola kepercayaan, nilai-nilai, dan asumsi-asumsi para karyawan yang digunakan untuk membentuk pola perilaku sebagai cara yang benar untuk mencapai tujuan", "ide para pendiri atau pemimpin organisasi tentang kebenaran, realitas, dan cara kerja dunia adalah pangkal dari budaya organisasi", "para pendiri/pemimpin organisasi tidak jarang juga menolak masuk orang-orang yang punya kepercayaan dan nilai-nilai yang relatif berbeda"],
+                correct: 1,
+                explanation: "Peran kepemimpinan menurut Schein adalah membentuk dan mengarahkan kepercayaan, nilai, serta asumsi dasar anggota menjadi pola perilaku standar."
+            },
+            {
+                id: 40,
+                question: "Berdasarkan tingkat risiko dari kegiatan bisnis dan tingkat kecepatan umpan balik dari lingkungan, budaya organisasi yang berkembang di berbagai jenis bisnis dan industri dapat dibedakan menjadi empat jenis budaya, yaitu ...",
+                options: ["budaya macho, budaya kerja keras/main keras, budaya pertaruhan usaha, dan budaya proses", "budaya kekuasaan, budaya peran, budaya tugas, dan budaya individu", "budaya klan, budaya adhokrasi, budaya hirarki, dan budaya pasar", "budaya positif, budaya negatif, budaya fleksibel, dan budaya kaku"],
+                correct: 0,
+                explanation: "4 Jenis Budaya Deal & Kennedy: Macho/Tough-guy, Work hard/Play hard, Bet-your-company (pertaruhan usaha), dan Process culture."
+            },
+            {
+                id: 41,
+                question: "Berikut ini merupakan contoh dari budaya macho dalam budaya organisasi pada lingkungan bisnis, yaitu ...",
+                options: ["makanan cepat saji, perusahaan komputer, bisnis properti", "kampanye periklanan, program televisi, perusahaan mobil", "perminyakan, pertambangan, investasi bank", "asuransi, farmasi, Badan Pemerintahan"],
+                correct: 1,
+                explanation: "Budaya Macho (risiko tinggi, umpan balik cepat) dicontohkan pada industri periklanan, hiburan/media TV, dan dunia manajemen risiko tinggi."
+            },
+            {
+                id: 42,
+                question: "Berdasarkan dimensi kekuatan budaya, budaya dapat dilihat sebagai budaya organisasi kuat dan budaya lemah. Budaya kuat dijelaskan sebagai ...",
+                options: ["jumlah asumsi dasar yang diterima kelompok dan penyebaran jumlah penerima dalam kelompok", "elemen yang dibutuhkan agar mampu mencapai sukses dalam lingkungannya", "investasi besar dengan risiko tinggi namun umpan balik melambat", "budaya organisasi dalam menghadapi proses global"],
+                correct: 0,
+                explanation: "Kekuatan budaya diukur dari seberapa dalam asumsi dasar dihayati dan seberapa luas konsensus/penyebaran penerimaannya di seluruh anggota."
+            },
+            {
+                id: 43,
+                question: "Lapisan kedua dari budaya organisasi adalah nilai-nilai dihayati yang meliputi nilai-nilai ...",
+                options: ["personal dan sosial", "organisasi dan personal", "organisasi dan sosial", "organisasi, personal, dan sosial"],
+                correct: 0,
+                explanation: "Lapisan nilai-nilai yang dihayati (espoused values) memadukan preferensi nilai personal individu serta norma-norma sosial kelompok."
+            },
+            {
+                id: 44,
+                question: "Budaya organisasi adalah konsep dengan tiga lapis pengertian. Lapisan paling atas konsep budaya organisasi adalah artefak (artifacts), yaitu ...",
+                options: ["nilai-nilai yang dihayati, yang meliputi nilai-nilai personal dan nilai sosial, terutama nilai kelompok", "segala hasil karya yang dapat dilihat, didengar, dan dirasakan mengenai organisasi", "nilai budaya terkait dengan apa yang seharusnya, bukan apa yang ada di de facto", "suatu solusi persoalan yang lambat laun diterima, tanpa dipertanyakan lagi, karena berulang kali memberikan hasil yang diharapkan"],
+                correct: 1,
+                explanation: "Artefak adalah manifestasi fisik dan kasat mata (kasat indera) dari budaya organisasi seperti arsitektur, pakaian, seremoni, dan simbol."
+            },
+            {
+                id: 45,
+                question: "Terdapat tiga konsep lapisan budaya organisasi yaitu nilai-nilai dihayati, artefak dan asumsi dasar. Artefak berada pada ...",
+                options: ["lapisan paling atas", "lapisan paling bawah", "lapisan tengah", "semua lapisan"],
+                correct: 0,
+                explanation: "Artefak berada di permukaan paling luar/atas (surface level), diikuti nilai dihayati di tengah, dan asumsi dasar di paling dalam."
+            },
+            {
+                id: 46,
+                question: "Schein (1992) mendefinisikan budaya organisasi yang lebih menekankan pada asumsi dasar sebagai inti dari budaya organisasi. Definisi tersebut dianggap paling komprehensif karena ...",
+                options: ["terdapat pola asumsi dasar dari seperangkat kebenaran yang dapat diterima secara bersama", "menggambarkan budaya organisasi secara sistematis", "menampilkan berbagai pola-pola asumsi dasar sehingga budaya organisasi menjadi komprehensif", "terdapat asumsi dasar dari berbagai sistem yang ada dalam budaya organisasi"],
+                correct: 0,
+                explanation: "Definisi Schein komprehensif karena menggali hingga pola asumsi dasar bersama yang menjadi pondasi cara berpikir dan merasa."
+            },
+            {
+                id: 47,
+                question: "Pengertian budaya organisasi menurut Pettigrew adalah sistem arti yang diterima secara ...",
+                options: ["kolektif, dan berlaku untuk sekelompok orang tertentu pada waktu tertentu", "namun sifatnya personal, dan berlaku untuk individu tertentu pada waktu tertentu", "kolektif, dan berlaku untuk orang-orang tertentu tanpa batas waktu", "namun sifatnya personal, dan hanya berlaku untuk individu tertentu tanpa batas waktu"],
+                correct: 0,
+                explanation: "Pettigrew mendefinisikan budaya sebagai sistem makna bersama yang diterima secara kolektif oleh kelompok pada periode tertentu."
+            },
+            {
+                id: 48,
+                question: "Budaya organisasi sebagai kata lain dari pelembagaan (institutionalization) dapat digambarkan sebagai transformasi ...",
+                options: ["karyawan baru yang memungkinkan kehidupan khusus organisasi dapat lestari karena terbebas dari pengaruh individu-individu", "karyawan lama yang memungkinkan kehidupan khusus organisasi dapat lestari karena terbebas dari pengaruh individu-individu", "karyawan baru yang memungkinkan kehidupan khusus organisasi dapat lestari karena pengaruh individu-individu", "karyawan lama yang memungkinkan kehidupan khusus organisasi dapat lestari karena pengaruh individu-individu"],
+                correct: 0,
+                explanation: "Pelembagaan mentransformasikan individu/karyawan baru agar melebur ke dalam norma organisasi yang berkelanjutan melampaui figur individual."
+            },
+            {
+                id: 49,
+                question: "Terdapat hubungan antara kebudayaan masyarakat dan budaya organisasi diungkapkan oleh Barnett, yaitu ...",
+                options: ["budaya organisasi dipengaruhi oleh kebudayaan lingkungan dan masyarakat namun memiliki definisi lebih sempit", "budaya organisasi tidak dipengaruhi oleh kebudayaan masyarakat namun memiliki definisi lebih sempit", "budaya organisasi dipengaruhi oleh kebudayaan masyarakat namun memiliki definisi lebih luas", "budaya organisasi tidak dipengaruhi oleh kebudayaan masyarakat namun memiliki definisi lebih luas"],
+                correct: 0,
+                explanation: "Barnett menjelaskan budaya organisasi bersumber dari budaya masyarakat luar namun terkonsetrasi pada ruang lingkup spesifik yang lebih sempit."
+            },
+            {
+                id: 50,
+                question: "Budaya organisasi diakui berbeda dengan kebudayaan masyarakat/kebudayaan nasional, meskipun perbedaan itu tidak berarti pertentangan, melainkan lebih pada derajat ...",
+                options: ["ketajaman", "keluasan", "kualitas", "kehangatan"],
+                correct: 1,
+                explanation: "Perbedaan budaya organisasi dan budaya nasional terletak pada tingkat keluasan (scope) jangkauannya."
+            },
+            {
+                id: 51,
+                question: "Budaya organisasi diakui berbeda dengan kebudayaan masyarakat, namun di antara keduanya ada hubungan. Pernyataan berikut menunjukkan hubungan di antara keduanya ...",
+                options: ["budaya masyarakat merupakan bagian dari budaya organisasi", "budaya masyarakat dipengaruhi oleh budaya organisasi yang diberi definisi lebih sempit", "budaya organisasi dipengaruhi oleh kebudayaan lingkungan dan masyarakat secara keseluruhan, tetapi diberi definisi lebih sempit", "budaya organisasi merupakan pertemuan antara budaya masyarakat satu ke budaya masyarakat yang lain"],
+                correct: 2,
+                explanation: "Budaya organisasi merupakan bagian mikro yang mengambil nilai masyarakat makro lalu disesuaikan secara lebih spesifik."
+            },
+            {
+                id: 52,
+                question: "Dampak iklim komunikasi bisa digambarkan melalui situasi berikut ini ...",
+                options: ["mengerjakan tugas rekan kerja yang berhalangan", "kerelaan membantu rekan kerja", "menahan diri atas ide-ide yang kontroversial", "tahu diri pada wewenang dan tanggung jawab"],
+                correct: 2,
+                explanation: "Iklim komunikasi yang kurang kondusif dapat menyebabkan anggota menahan diri dari menyampaikan gagasan kritis/kontroversial."
+            },
+            {
+                id: 53,
+                question: "Dampak iklim komunikasi didefinisikan dan diteguhkan oleh para karyawan melalui ...",
+                options: ["feedback yang didapatkan", "konflik yang terjadi", "interaksi", "komitmen bersama"],
+                correct: 2,
+                explanation: "Karyawan membentuk dan memperkuat iklim komunikasi melalui pola interaksi rutin sehari-hari."
+            },
+            {
+                id: 54,
+                question: "Salah satu fungsi iklim komunikasi dalam organisasi yaitu ...",
+                options: ["membangun hubungan yang baik antarkaryawan", "membangkitkan komitmen karyawan sehingga kerja organisasi menjadi efektif", "meningkatkan efektivitas kinerja karyawan dalam organisasi", "meningkatkan keharmonisan hubungan karyawan dan pimpinan dalam organisasi"],
+                correct: 1,
+                explanation: "Fungsi utama iklim komunikasi adalah memotivasi komitmen kerja anggota demi efektivitas pencapaian tujuan."
+            },
+            {
+                id: 55,
+                question: "Secara teoritis terdapat hubungan antara iklim organisasi dengan iklim komunikasi, yaitu ...",
+                options: ["iklim komunikasi sebagai pola interaksi anggota organisasi, yang dipengaruhi oleh iklim organisasi", "iklim komunikasi merupakan saluran yang menjembatani adanya iklim organisasi", "iklim komunikasi sebagai penghubung iklim organisasi", "iklim komunikasi merupakan media yang dapat menciptakan iklim organisasi"],
+                correct: 0,
+                explanation: "Iklim komunikasi merefleksikan pola interaksi yang secara konseptual dipengaruhi dan dinaungi oleh iklim organisasi secara umum."
+            },
+            {
+                id: 56,
+                question: "Hubungan antara iklim organisasi dan komunikasi, bisa dijelaskan dengan pernyataan berikut ini ...",
+                options: ["dimensi komunikasi berdiri otonom namun berkaitan dengan dimensi lain dari iklim organisasi", "dimensi komunikasi berdiri otonom dan tidak berkaitan secara signifikan dengan dimensi-dimensi lain dari iklim organisasi", "komunikasi merupakan salah satu dimensi dari iklim organisasi", "komunikasi merupakan satu dimensi yang paling utama dari iklim organisasi"],
+                correct: 2,
+                explanation: "Dalam lanskap teori iklim organisasi, aspek komunikasi menempati posisi sebagai salah satu sub-dimensi pembentuk iklim."
+            },
+            {
+                id: 57,
+                question: "Hubungan antara konsep iklim organisasi dan iklim komunikasi secara teoritis, dapat diwakili oleh pernyataan berikut ini ...",
+                options: ["iklim organisasi sebagai pola interaksi antaranggota organisasi serta antara anggota dan pimpinan organisasi mempengaruhi iklim komunikasi", "iklim komunikasi sebagai pola interaksi antaranggota organisasi serta antara anggota dan pimpinan organisasi dipengaruhi oleh iklim organisasi", "iklim komunikasi berkembang sebagai tanggapan terhadap iklim eksternal", "iklim komunikasi berkembang sebagai tanggapan terhadap iklim internal organisasi"],
+                correct: 1,
+                explanation: "Pola interaksi komunikasi anggota dan manajerial (iklim komunikasi) berjalan di dalam koridor kondisi iklim organisasi."
+            },
+            {
+                id: 58,
+                question: "Redding memperkenalkan model ideal managerial climate (IMC), yang ditunjukkan melalui lima pola perilaku jajaran manajemen, salah satunya adalah pola perilaku pembuatan keputusan partisipatif, yang artinya ...",
+                options: ["atasan tidak hanya mengumumkan keputusan yang telah dibuat, melainkan meminta masukan, ide-ide, dan usulan dari anak buah dalam pembuatan keputusan", "atasan tidak hanya mengumumkan keputusan yang telah dibuat, melainkan juga melaksanakan keputusannya itu", "atasan membuat keputusan tidak hanya berdasarkan realitas yang dihadapi organisasi, melainkan juga yang dihadapi oleh pesaing-pesaingnya", "atasan membuat keputusan yang memungkinkan munculnya aktivitas bersama"],
+                correct: 0,
+                explanation: "Keputusan partisipatif melibatkan keterbukaan manajer dalam menjaring aspirasi, saran, dan umpan balik bawahan sebelum menetapkan kebijakan."
+            },
+            {
+                id: 59,
+                question: "Berikut ini merupakan dimensi komunikasi menurut model ideal managerial climate (IMC) yang dikemukakan oleh Redding, yaitu ...",
+                options: ["pola pimpinan-pembuatan keputusan partisipatif-dukungan-reward-evaluasi", "struktur-kepercayaan-keterbukaan-evaluasi", "dukungan-pembuatan keputusan partisipatif-kepercayaan-keterbukaan dan ketulusan-peduli", "pola pimpinan-dukungan-pembuatan keputusan partisipatif-reward-keterbukaan"],
+                correct: 2,
+                explanation: "5 Dimensi IMC Redding: Supportiveness, Participative Decision Making, Trust, Openness & Candor, dan High Performance Goals (Kepedulian kualitas)."
+            },
+            {
+                id: 60,
+                question: "Dimensi komunikasi menurut model ideal managerial climate (IMC) menurut Redding salah satunya adalah keterbukaan dan ketulusan, artinya ...",
+                options: ["menunjukkan adanya dukungan", "menetapkan standar kinerja dalam mencapai tujuan", "menyampaikan informasi secara terbuka & mau mendengarkan bawahan", "tidak hanya memberikan keputusan, namun meminta masukan & ide bawahan"],
+                correct: 2,
+                explanation: "Keterbukaan & Ketulusan (Openness & Candor) ditunjukkan dengan transparansi pengiriman informasi dan kesediaan aktif mendengarkan."
+            },
+            {
+                id: 61,
+                question: "Apabila dilihat dari sudut pandang teori, kemunculan iklim organisasi dapat dijelaskan dengan empat teori yang berbeda, salah satunya adalah teori strukturalis (structuralist theory) yang mengatakan bahwa iklim organisasi muncul karena interpretasi ...",
+                options: ["pemimpin terhadap struktur organisasi", "para karyawan terhadap struktur organisasi", "publik eksternal terhadap struktur organisasi", "pelanggan yang loyal terhadap struktur organisasi"],
+                correct: 1,
+                explanation: "Teori strukturalis berasumsi iklim lahir dari persepsi dan interpretasi kolektif para pekerja terhadap objek struktur fisik/formal organisasi."
+            },
+            {
+                id: 62,
+                question: "Pandangan teori strukturalis dalam iklim organisasi menjelaskan bahwa ...",
+                options: ["dampak dari proses seleksi, daya tarik & menjadi karyawan tetap dalam organisasi", "semua organisasi memiliki struktur yang menampilkan aspek tertentu, ukuran, hierarki & spesialisasi kerja", "iklim organisasi diciptakan & dipertahankan melalui interaksi mengenai berbagai aspek yang ada di organisasi", "iklim organisasi merupakan hasil dari kegiatan organisasi"],
+                correct: 1,
+                explanation: "Strukturalisme mendasarkan iklim pada karakteristik objektif organisasi seperti besaran, hierarki, dan spesialisasi."
+            },
+            {
+                id: 63,
+                question: "Pandangan teori interaksionis memiliki asumsi iklim organisasi diciptakan dan dipertahankan melalui ...",
+                options: ["nilai-nilai organisasi yang terbentuk", "koordinasi pimpinan dan manajer", "interaksi antarkaryawan mengenai aspek-aspek organisasi", "instruksi pimpinan atas pekerjaan yang diberikan"],
+                correct: 2,
+                explanation: "Teori interaksionis menekankan bahwa iklim muncul dari proses negosiasi dan interaksi sosial antarangota."
+            },
+            {
+                id: 64,
+                question: "Iklim organisasi diciptakan untuk merangsang para anggotanya agar berperilaku produktif dan meraih kepuasan kerja. Salah satu elemen kunci iklim adalah struktur organisasi yang meliputi struktur otoritas, besaran atau ukuran, dan ...",
+                options: ["jumlah anggota organisasi atau kelompok", "kompleksitas sistem", "hubungan antarkaryawan", "jenis organisasi"],
+                correct: 1,
+                explanation: "Elemen struktur organisasi mencakup: struktur otoritas, besaran (ukuran), dan kompleksitas sistem."
+            },
+            {
+                id: 65,
+                question: "Berikut ini merupakan unsur dari atribut organisasi sebagai elemen kunci iklim organisasi di antaranya ialah ...",
+                options: ["struktur otoritas, besaran/ukuran & kompleksitas sistem", "tanggung jawab, pengertian, orientasi ganjaran & kepuasan karyawan", "pola kepemimpinan, arah tujuan, risiko, konflik & kepedulian", "pengaruh pimpinan, risiko, tanggung jawab & kepuasan karyawan"],
+                correct: 0,
+                explanation: "Atribut objektif organisasi direpresentasikan oleh otoritas formal, ukuran institusi, dan kompleksitas sistemik."
+            },
+            {
+                id: 66,
+                question: "Berbagai penelitian menyimpulkan bahwa iklim pada dasarnya memiliki tiga elemen kunci yaitu struktur organisasi ...",
+                options: ["atribut organisasi dan isu-isu mengenai atasan", "atribut organisasi saja", "isu-isu mengenai atasan saja", "kebijakan publik dan anggaran"],
+                correct: 0,
+                explanation: "3 Elemen kunci iklim: Struktur organisasi, Atribut organisasi, serta Isu-isu mengenai kepemimpinan/atasan."
+            },
+            {
+                id: 67,
+                question: "Salah satu asumsi dari pengukuran ganda dalam iklim organisasi adalah ...",
+                options: ["organisasi membatasi karakteristik yang dapat diperinci secara spesifik", "organisasi membatasi karakteristik yang dapat diperinci secara umum", "organisasi mengembangkan karakteristik yang dapat diperinci secara spesifik", "organisasi mengembangkan karakteristik yang dapat diperinci secara umum"],
+                correct: 2,
+                explanation: "Pendekatan pengukuran ganda mengasumsikan organisasi secara alami mengembangkan set atribut spesifik yang dapat diukur."
+            },
+            {
+                id: 68,
+                question: "Pendekatan pengukuran ganda merupakan salah satu klasifikasi dari pendekatan iklim organisasi yang memahami iklim sebagai suatu atribut-atribut yang dimiliki organisasi. Salah satu asumsi pendekatan pengukuran ganda ialah ...",
+                options: ["iklim dianggap sebagai variabel sikap", "persepsi mengenai iklim bersifat deskriptif", "laporan bawahan menunjukkan kesamaan", "organisasi bertahan lama meskipun anggotanya fluktuasi & berganti"],
+                correct: 3,
+                explanation: "Asumsi atribut organisasional menyatakan iklim relatif stabil dan bertahan lama meskipun terjadi pergantian personel."
+            },
+            {
+                id: 69,
+                question: "Terdapat tiga pendekatan dalam pemahaman iklim organisasi yaitu pendekatan atribut organisasi pengukuran ganda, pendekatan persepsi pengukuran atribut organisasi, dan ...",
+                options: ["pendekatan pengukuran persepsi atribut individual", "pendekatan pengukuran kepuasan individu", "pendekatan pengukuran kinerja individu", "pendekatan pengukuran semangat karyawan"],
+                correct: 0,
+                explanation: "Tiga pendekatan utama iklim: Multiple Measurement-Organizational Attribute, Perceptual Measurement-Organizational Attribute, dan Perceptual Measurement-Individual Attribute."
+            },
+            {
+                id: 70,
+                question: "Iklim organisasi yang dijelaskan melalui istilah atmosfer merupakan definisi yang dikemukakan oleh ...",
+                options: ["Blumenstock (1970)", "Kurt Lewin (1951)", "Forehand (1968)", "Renato Tagiuri (1968)"],
+                correct: 1,
+                explanation: "Kurt Lewin (1951) adalah pelopor yang menggunakan konsep 'atmosphere' (atmosfer) psikologis lingkungan."
+            },
+            {
+                id: 71,
+                question: "Pengertian iklim organisasi diperkenalkan oleh Kurt Lewin (1951) melalui istilah atmosfer (atmosphere). Kurt mengatakan bahwa atmosfer sebagai medan psikologis adalah ...",
+                options: ["keseluruhan suasana lingkungan sosial yang secara empiris dialami dan menimbulkan dampak pada orang-orang", "lapisan udara yang mempengaruhi suasana kerja", "keadaan perasaan anggota organisasi yang dipengaruhi oleh suasana batin", "kondisi psikis para anggota organisasi yang menimbulkan dampak bagi orang-orang sekitarnya"],
+                correct: 0,
+                explanation: "Kurt Lewin mengartikan atmosfer psikologis sebagai totalitas suasana sosial yang mempengaruhi perilaku individu."
+            },
+            {
+                id: 72,
+                question: "Seperangkat ciri yang menggambarkan dan membedakan organisasi dengan organisasi lainnya, dan relatif bertahan lama serta dapat mempengaruhi perilaku anggota organisasi. Definisi tersebut merupakan pengertian dari iklim organisasi yang dikemukakan oleh ...",
+                options: ["Blumenstock (1970)", "Kurt Lewin (1951)", "Forehand (1968)", "Renato Tagiuri (1968)"],
+                correct: 2,
+                explanation: "Definisi klasik iklim organisasi sebagai seperangkat ciri pembeda yang relatif bertahan lama dicetuskan oleh Forehand & Gilmer (1968)."
+            },
+            {
+                id: 73,
+                question: "Menurut Gaya Situasional Hersey dan Blanchard, situasi dimana pimpinan dan bawahan bersama-sama terlibat dalam membuat keputusan dan bertanggung jawab pada keputusannya dikenal dengan ...",
+                options: ["gaya memberitahukan (telling)", "gaya menjual (selling)", "gaya partisipasi", "gaya pendelegasian"],
+                correct: 2,
+                explanation: "Gaya Partisipasi (Participating/S3) mengedepankan kepemimpinan suportif dan pembuatan keputusan bersama."
+            },
+            {
+                id: 74,
+                question: "Gaya kepemimpinan dari Hersey dan Blanchard memberikan model gaya kepemimpinan situasional yang di dalamnya membedakan antara ...",
+                options: ["tugas dan hubungan", "tanggung jawab dan wewenang", "hak dan kewajiban", "aturan dan birokrasi"],
+                correct: 0,
+                explanation: "Model Situasional Hersey-Blanchard mengukur dua dimensi perilaku utama: Perilaku Tugas (Task) dan Perilaku Hubungan (Relationship)."
+            },
+            {
+                id: 75,
+                question: "Menurut White dan Lippit (1960), gaya kepemimpinan otoritarian adalah ...",
+                options: ["pemimpin memberikan kesempatan bawahan untuk menyelesaikan berbagai persoalan organisasi", "pemimpin mendorong bawahan untuk berpartisipasi dalam membuat keputusan", "pemimpin memberikan kesempatan untuk berdiskusi", "pemimpin memberikan perintah & mengontrol tugas bawahan"],
+                correct: 3,
+                explanation: "Kepemimpinan otoriter ditandai penentuan kebijakan sepihak, kontrol ketat, serta pengeluaran instruksi tanpa diskusi."
+            },
+            {
+                id: 76,
+                question: "Salah satu kompetensi pemimpin terkait komunikasi dalam kelompok dan organisasi ialah ...",
+                options: ["mampu menyelenggarakan & memfungsikan rapat", "mampu memahami kesulitan anggota organisasi", "mampu berempati & menempatkan diri pada posisi orang lain", "mampu melihat kesalahan anggota organisasi"],
+                correct: 0,
+                explanation: "Dalam konteks kelompok/organisasi, kompetensi praktis kepemimpinan melibatkan efektivitas memimpin dan mengelola rapat."
+            },
+            {
+                id: 77,
+                question: "De Vito menjelaskan karakteristik efektivitas komunikasi antarpribadi dapat dilihat dalam dua sudut pandang (perspektif), salah satunya dari perspektif humanistik yang meliputi ...",
+                options: ["keterbukaan, empati, suportif, serta perilaku positif dan kesamaan", "keterbukaan dan empati saja", "sikap percaya diri dan berperilaku ekspresif saja", "kontrol dan dominasi"],
+                correct: 0,
+                explanation: "Perspektif Humanistik DeVito mencakup: Openness, Empathy, Supportiveness, Positiveness, dan Equality."
+            },
+            {
+                id: 78,
+                question: "Dari sisi komunikasi, seorang pemimpin harus memiliki kompetensi intrapersonal berupa pribadi yang ...",
+                options: ["dapat diandalkan, jujur, adil, dan terpercaya", "dapat diandalkan dan jujur saja", "terpercaya saja", "tegas dan disegani saja"],
+                correct: 0,
+                explanation: "Kompetensi intrapersonal kepemimpinan berlandaskan integritas: terpercaya, adil, jujur, dan kredibel."
+            },
+            {
+                id: 79,
+                question: "French dan Raven mengemukakan kekuasaan yang dimiliki pemimpin yang berasal dari jabatan yang secara legal disandangnya disebut sebagai ...",
+                options: ["legitimate power", "reward power", "coercive power", "expertise power"],
+                correct: 0,
+                explanation: "Legitimate power (kekuasaan sah) bersumber dari posisi atau posisi hierarkis legal dalam struktural organisasi."
+            },
+            {
+                id: 80,
+                question: "Menurut Hersey dan Blanchard, kekuasaan atau power diperlukan seorang pemimpin untuk ...",
+                options: ["memperkuat posisinya", "memperhatikan kedudukannya", "mendapatkan kepatuhan anak buah", "meningkatkan harga diri sebagai pemimpin"],
+                correct: 2,
+                explanation: "Power menurut Hersey & Blanchard adalah sarana untuk memengaruhi perilaku dan memperoleh kepatuhan (compliance) bawahan."
+            },
+            {
+                id: 81,
+                question: "Berdasarkan definisinya, maka konsep organisasi meliputi lima unsur pengertian ...",
+                options: ["sistem, kegiatan, komunikasi, hierarki, dan tujuan", "orang-orang, komunikasi, kegiatan, jabatan, dan kepuasan", "sistem, orang-orang, cita-cita, kerjasama, dan kepuasan", "orang-orang, komunikasi, kesepakatan, kekuasaan, dan tujuan"],
+                correct: 0,
+                explanation: "5 Unsur pokok definisi organisasi: Adanya sistem, struktur kegiatan, komunikasi, hierarki wewenang, dan penetapan tujuan."
+            },
+            {
+                id: 82,
+                question: "Organisasi formal merupakan suatu sistem kegiatan-kegiatan atau kekuatan-kekuatan dari dua orang atau lebih yang dikoordinasikan secara sadar. Definisi komunikasi organisasi tersebut dikembangkan oleh seorang tokoh komunikasi, yaitu ...",
+                options: ["Chester Irving Barnard", "William G Scott", "Kenneth R Andrews", "Charles E Redfield"],
+                correct: 0,
+                explanation: "Definisi klasik organisasi formal sebagai sistem kegiatan terkoordinasi secara sadar dirumuskan oleh Chester I. Barnard (1938)."
+            },
+            {
+                id: 83,
+                question: "Chester Irving Barnard mengatakan bahwa organisasi pada hakikatnya adalah sistem kerja sama sejumlah orang untuk ...",
+                options: ["mendapatkan kekuasaan setinggi-tingginya", "mencapai cita-cita masa kecil", "mencapai tujuan yang sudah disepakati bersama", "mendapatkan kepuasan hidup"],
+                correct: 2,
+                explanation: "Barnard menegaskan esensi organisasi adalah kooperatif (kerjasama) dalam merealisasikan tujuan bersama."
+            },
+            {
+                id: 84,
+                question: "Istilah organisasi informal sekarang digunakan sebagai padanan dari komunikasi informal yang berarti adalah jaringan ...",
+                options: ["interaksi sosial", "interaksi antar manusia", "kelompok", "sosial"],
+                correct: 0,
+                explanation: "Organisasi informal menunjuk pada jaringan interaksi sosial alamiah yang tumbuh di luar struktur formal."
+            },
+            {
+                id: 85,
+                question: "Organisasi melakukan komunikasi timbal balik dengan lingkungan melalui proses penyerapan masukan (input) dan penyampaian hasil kerja (output) serta komunikasi fungsional antarbagian organisasi dalam proses produksi (proses). Dalam internal organisasi, komunikasi dipakai untuk ...",
+                options: ["mengolah input yang telah didapatkan dalam suatu proses", "mengolah input yang telah diseleksi ketat", "mengolah output yang telah didapatkan dalam suatu proses", "mengolah output yang telah diseleksi ketat"],
+                correct: 0,
+                explanation: "Komunikasi internal berfungsi memproses dan mengolah input yang diterima menjadi luaran yang diharapkan."
+            },
+            {
+                id: 86,
+                question: "Berikut ini merupakan hal-hal yang dinilai penting dalam komunikasi, kecuali ...",
+                options: ["menghasilkan kesepakatan mengenai tujuan bersama", "membangun organisasi informal", "memberi motivasi kerja & semangat serta kepuasaan kerja", "mensejahterakan seluruh individu yang ada dalam organisasi"],
+                correct: 1,
+                explanation: "Membuat kesepakatan tujuan, motivasi, dan kesejahteraan adalah manfaat utama komunikasi. 'Membangun organisasi informal' bukan tujuan resmi."
+            },
+            {
+                id: 87,
+                question: "Komunikasi memiliki peran di dalam pemeliharaan semangat suatu organisasi. Hal ini mengandung arti sebagai ...",
+                options: ["organisasi mempunyai saluran serta media komunikasi", "penting dalam memahami konsep ilmu komunikasi", "dapat menciptakan adanya budaya unggul", "dapat memelihara semangat kerja sama serta motivasi para anggota"],
+                correct: 3,
+                explanation: "Pemeliharaan semangat organisasi berarti komunikasi mampu menjaga motivasi, moral, dan spirit kerjasama anggota."
+            },
+            {
+                id: 88,
+                question: "Istilah komunikasi organisasi (organizational) dapat digunakan dalam dua pengertian: sebagai istilah teknis (technical term) dan sebagai sebuah disiplin akademis (field of study). Sebagai disiplin akademis, komunikasi organisasi meliputi ...",
+                options: ["disiplin studi komunikasi organisasi yang diselenggarakan oleh perguruan tinggi", "pembakuan prosedur pelaksanaan komunikasi organisasi di berbagai jenis organisasi", "semua konsep dan teori yang dibutuhkan untuk menjelaskan komunikasi organisasi", "profesi yang berkhidmat pada kode etik profesi"],
+                correct: 2,
+                explanation: "Sebagai bidang studi akademis, komunikasi organisasi merangkum korpus teori, konsep, dan metodologi penjelasan fenomena."
+            },
+            {
+                id: 89,
+                question: "Organisasi melakukan komunikasi timbal balik dengan lingkungan melalui proses ...",
+                options: ["penyerapan masukan (input), penyampaian hasil (output), dan komunikasi fungsional produksi", "penyerapan masukan (input) dan penyampaian output saja", "komunikasi fungsional produksi saja", "pemasaran iklan eksternal saja"],
+                correct: 0,
+                explanation: "Proses komunikasi kesisteman mencakup input lingkungan, throughput (proses produksi), dan output ke masyarakat."
+            },
+            {
+                id: 90,
+                question: "Menurut Barnard (1938) salah satu unsur sebuah organisasi lahir ialah ...",
+                options: ["terdapat orang-orang yang dapat berkomunikasi satu sama lain", "adanya informasi yang diproses", "terdapat seorang pemimpin", "adanya semangat yang tinggi untuk mencapai tujuan"],
+                correct: 0,
+                explanation: "Barnard menetapkan 3 syarat lahirnya organisasi: Kemauan bekerjasama, Tujuan bersama, dan Anggota yang mampu berkomunikasi."
+            },
+            {
+                id: 91,
+                question: "Menurut Goldhaber, pengertian komunikasi organisasi terdiri atas tujuh elemen yaitu proses, pesan, jaringan, saling ketergantungan, hubungan, lingkungan dan ketidakpastian. Saling ketergantungan mengandung pengertian sebagai ...",
+                options: ["pola hubungan yang berbentuk jaringan", "proses penciptaan & pertukaran pesan", "hubungan saling mempengaruhi secara timbal balik", "proses kekuasaan & tanggung jawab formal"],
+                correct: 2,
+                explanation: "Saling ketergantungan (interdependence) berarti bagian-bagian dalam organisasi saling memengaruhi satu sama lain."
+            },
+            {
+                id: 92,
+                question: "Komunikasi organisasi merupakan komunikasi berdasarkan aturan yang terdiri dari ...",
+                options: ["ketidaktahuan", "kepahaman", "kepatuhan perilaku", "cara pandang"],
+                correct: 2,
+                explanation: "Komunikasi terstruktur dalam organisasi menuntut kepatuhan perilaku terhadap norma dan aturan yang berlaku."
+            },
+            {
+                id: 93,
+                question: "Komunikasi organisasi memiliki lima ciri khusus yaitu ...",
+                options: ["sebuah proses, direncanakan, ada kegiatan aksi, dapat diramalkan, dan multijenjang", "sebuah proses, terstruktur, bertujuan jelas, dapat diramalkan, dan multijenjang", "terstruktur, direncanakan, bertahap, bertujuan, dan terukur", "terstruktur, formal, bertahap, bertujuan, dan terukur"],
+                correct: 1,
+                explanation: "5 Ciri khusus komunikasi organisasi: Berupa proses, Terstruktur, Bertujuan jelas, Dapat diramalkan, dan Multijenjang."
+            },
+            {
+                id: 94,
+                question: "Salah satu ciri khusus komunikasi organisasi ialah bertujuan jelas. Berikut merupakan kategori pesan komunikasi dalam organisasi, kecuali ...",
+                options: ["pesan tugas", "pesan inovasi", "pesan delegasi", "pesan nilai-nilai sosial manusiawi"],
+                correct: 2,
+                explanation: "Kategori pesan dasar (Greenbaum/Goldhaber): Pesan tugas (task), pesan pemeliharaan/sosial, pesan inovasi, dan pesan integrasi. 'Pesan delegasi' bukan nama kategori baku."
+            },
+            {
+                id: 95,
+                question: "Salah satu ciri komunikasi organisasi adalah multijenjang. Dari analisis jenjang komunikasi, dapat ditemukan lima jenjang kegiatan yaitu jenjang individu (intrapersonal), jenjang antardua orang (dyadic), jenjang kelompok (group), jenjang organisasi (organizational), dan jenjang ...",
+                options: ["teknologi (technological)", "massa (massive)", "sosial (social)", "metode (methodical)"],
+                correct: 1,
+                explanation: "5 Jenjang komunikasi: Intrapersonal, Diad/Interpersonal, Kelompok, Organisasi, dan Massa (Mass communication)."
+            },
+            {
+                id: 96,
+                question: "Salah satu hal yang dapat membuat komunikasi formal menjadi lebih efektif ialah ...",
+                options: ["daya tarik pribadi", "perencanaan", "kepatuhan pada aturan", "memberikan wadah untuk opini publik"],
+                correct: 1,
+                explanation: "Perencanaan komunikasi yang matang memastikan alur informasi formal berjalan efisien tanpa distorsi."
+            },
+            {
+                id: 97,
+                question: "Model penerimaan kewenangan (the acceptance theory of authority) yang dikemukakan oleh Barnard (1938) komunikasi akan efektif jika memenuhi persyaratan berikut ini ...",
+                options: ["bawahan tidak menerima & dapat mengerti komunikasi atasan", "bawahan belum mampu mengerjakan pesan komunikasi (fisik maupun mental)", "komunikasi atasan bertentangan dengan tujuan organisasi", "komunikasi tidak merugikan kepentingan pribadi bawahan"],
+                correct: 3,
+                explanation: "Kewenangan diterima jika perintah dipahami, konsisten dengan tujuan organisasi, sesuai kemampuan bawahan, dan tidak merugikan kepentingan pribadi."
+            },
+            {
+                id: 98,
+                question: "Komunikasi informal semula diperkenalkan dengan sebutan organisasi informal. Pengertian organisasi informal menurut Barnard adalah ...",
+                options: ["sejumlah kontak dan interaksi pribadi atau kelompok-kelompok pergaulan yang terjadi secara berkelanjutan atau berulang kali tanpa suatu tujuan pribadi yang disadari", "sejumlah kontak dan interaksi pribadi atau kelompok-kelompok pergaulan yang terjadi secara berkelanjutan atau berulang kali tanpa suatu tujuan bersama yang tidak disadari", "sejumlah kontak dan interaksi pribadi atau kelompok-kelompok pergaulan yang terjadi secara berkelanjutan atau berulang kali tanpa suatu tujuan bersama yang disadari", "sejumlah kontak dan interaksi pribadi atau kelompok-kelompok pergaulan yang terjadi secara berkelanjutan atau berulang kali dengan suatu tujuan bersama yang disadari"],
+                correct: 2,
+                explanation: "Barnard mendefinisikan organisasi informal sebagai himpunan interaksi personal tanpa disadari oleh tujuan bersama yang diformalkan."
+            },
+            {
+                id: 99,
+                question: "Komunikasi yang terpusat pada keputusan dan berfungsi untuk memberikan perintah, berkoordinasi, pengarahan dan kontrol kegiatan bawahan disebut dengan ...",
+                options: ["komunikasi informal", "komunikasi formal", "komunikasi internal", "komunikasi eksternal"],
+                correct: 1,
+                explanation: "Komunikasi formal menyalurkan pesan resmi instruksi, arahan, dan koordinasi hirarkis."
+            },
+            {
+                id: 100,
+                question: "Kemampuan berperilaku dan berbahasa yang membuat orang mampu mencapai tujuan melalui interaksi, disebut sebagai ...",
+                options: ["sertifikasi", "keterampilan berkomunikasi", "praktik komunikasi", "kompetensi komunikasi"],
+                correct: 3,
+                explanation: "Kompetensi komunikasi mencakup pengetahuan dan kemampuan perilaku/bahasa untuk berinteraksi secara efektif."
+            },
+            {
+                id: 101,
+                question: "Setiap organisasi berusaha keras agar efektif karena efektivitas komunikasi memengaruhi kinerja organisasi. Komunikasi organisasi akan efektif apabila ...",
+                options: ["para anggota organisasi, khususnya para manajer memiliki kompetensi yang mencukupi", "para anggota organisasi memahami maksud perintah kerja", "para manajer memahami keinginan anggota organisasi", "para anggota organisasi, khususnya karyawan memiliki loyalitas pada organisasi"],
+                correct: 0,
+                explanation: "Efektivitas komunikasi organisasi ditentukan oleh penguasaan kompetensi komunikasi oleh manajer dan seluruh anggota."
+            },
+            {
+                id: 102,
+                question: "Salah satu syarat komunikasi formal yang efektif menurut model aturan lima (the rule of five) yang dikemukakan oleh Davis (1972) ialah ...",
+                options: ["digunakan dalam praktik", "menghasilkan aturan", "dapat didiskusikan", "dipahami golongan tertentu"],
+                correct: 0,
+                explanation: "Model Rule of Five Davis mensyaratkan agar saluran formal benar-benar dimanfaatkan aktif dalam praktik nyata."
+            },
+            {
+                id: 103,
+                question: "Komunikasi akan efektif apabila setiap posisi dalam jenjang-jenjang struktur organisasi diduduki oleh orang-orang yang memiliki kompetensi komunikasi yang mencukupi. Kompetensi komunikasi dalam komunikasi organisasi adalah ...",
+                options: ["kemampuan menyampaikan dan mendengarkan pesan sehingga bisa menguasai di bidangnya", "kemampuan berperilaku dan berbahasa yang membuat orang mampu mencapai tujuan melalui interaksi", "kemampuan berperilaku dan berbahasa yang membuat orang menjadi ahli", "kemampuan menyampaikan dan mendengarkan orang sehingga mampu memecahkan persoalan"],
+                correct: 1,
+                explanation: "Kompetensi komunikasi diartikan sebagai perpaduan pengetahuan perilaku dan ketrampilan berbahasa dalam berinteraksi."
+            },
+            {
+                id: 104,
+                question: "Stephen Littlejohn dan David Jabusch (1982) menyatakan bahwa kompetensi terdiri atas dua elemen, yaitu kemampuan (ability) dan ...",
+                options: ["kesempatan (opportunity)", "keterampilan (skill)", "kemauan (willingness)", "bakat (talent)"],
+                correct: 2,
+                explanation: "Dua elemen dasar kompetensi Littlejohn & Jabusch: Ability (kemampuan) dan Willingness (kemauan/motivasi)."
+            },
+            {
+                id: 105,
+                question: "Perspektif kesisteman memandang organisasi sebagai sebuah sistem. Perspektif organisasi sebagai sebuah sistem (systems perspective) diawali dengan anggapan bahwa ...",
+                options: ["organisasi tunduk pada siklus hidup biologis kelahiran-kedewasaan-kematian", "organisasi bekerja ke arah pengaturan diri (self organization), stabilitas, dan teramalkan karena adanya sikap, persepsi, kepercayaan, kebiasaan", "organisasi juga bergaul dan menjalin hubungan dengan berbagai bagian dari lingkungannya", "organisasi adalah sebuah mesin yang terdiri atas beberapa bagian yang saling terhubung"],
+                correct: 2,
+                explanation: "Perspektif sistem melihat organisasi sebagai sistem terbuka (open system) yang berinteraksi saling memengaruhi dengan lingkungan."
+            },
+            {
+                id: 106,
+                question: "Menurut Barnard dalam perspektif kesisteman modern sebelum menerima pesan yang disampaikan dalam aktivitas komunikasi organisasi terdapat beberapa hal yang perlu diperhatikan oleh pemimpin, salah satunya ialah ...",
+                options: ["memahami latar belakang keluarga pembicara", "memiliki kepercayaan bahwa pesan tidak bertentangan dengan tujuan organisasi", "memiliki pengetahuan pribadi mengenai organisasi", "memahami pola pemikiran setiap anggota organisasi"],
+                correct: 1,
+                explanation: "Pesan yang dikirim harus diyakini tidak kontradiktif atau bertentangan dengan cita-cita dan tujuan organisasi."
+            },
+            {
+                id: 107,
+                question: "Katherine Miller dalam buku Communication Theories: Perspectives, Processes, and Contexts memberi definisi istilah perspektif sebagai berikut ...",
+                options: ["suatu cara memandang atau melihat sebuah fenomena", "suatu cara menilai sebuah fenomena", "suatu cara memandang fenomena berdasarkan teori", "suatu cara menilai fenomena berdasarkan patokan tertentu"],
+                correct: 0,
+                explanation: "Miller mengartikan perspektif secara sederhana sebagai kerangka atau cara memandang fenomena."
+            },
+            {
+                id: 108,
+                question: "Perspektif yang berkaitan dengan budaya organisasi, disebut sebagai ...",
+                options: ["perspektif fungsional", "perspektif interpretif", "perspektif kritis", "perspektif kesisteman"],
+                correct: 1,
+                explanation: "Perspektif interpretif (interpretive perspective) berfokus pada pemaknaan simbolis dan budaya organisasi."
+            },
+            {
+                id: 109,
+                question: "Perspektif fungsional sangat menekankan efektivitas komunikasi untuk kepentingan ...",
+                options: ["bersama", "kontrol manajerial", "pengawasan lingkungan", "kontrol karyawan"],
+                correct: 1,
+                explanation: "Fungsionalisme memandang komunikasi sebagai instrumen utama untuk mengoptimalkan kontrol manajerial dan efisiensi."
+            },
+            {
+                id: 110,
+                question: "Perspektif fungsional atau functionalism adalah perspektif komunikasi organisasi yang paling tua. Kata kunci dalam studi komunikasi organisasi dalam perspektif fungsional adalah ...",
+                options: ["efektivitas dan sampai batas tertentu juga efisiensi", "organisasi sebagai sebuah fenomena subjektif, bukan fenomena objektif", "organisasi sebagai alat privilese atau alat penindasan", "karyawan boleh mengeritik kekuasaan"],
+                correct: 0,
+                explanation: "Kata kunci perspektif fungsional klasik adalah efektivitas pesan dan efisiensi sistemik."
+            },
+            {
+                id: 111,
+                question: "Manajer mengadakan rapat untuk membahas strategi. Setelah rapat, manajer tersebut meminta agar para peserta menuliskan ide-ide yang kemudian dikumpulkan dan didiskusikan. Kegiatan dalam komunikasi organisasi tersebut menggunakan pesan ...",
+                options: ["komunikasi tertulis", "komunikasi lisan", "gabungan komunikasi lisan dan tertulis", "komunikasi tidak resmi melalui rumor"],
+                correct: 2,
+                explanation: "Kombinasi rapat (lisan) dan penulisan ide (tertulis) mengaplikasikan saluran gabungan lisan dan tertulis."
+            },
+            {
+                id: 112,
+                question: "Pesan-pesan komunikasi organisasi dapat dibedakan menjadi beberapa jenis pesan berdasarkan isi dan tujuannya, yaitu pesan ...",
+                options: ["operasional/pemeliharaan dan inovasi/integrasi", "operasional dan proses saja", "inovasi dan perencanaan saja", "pesan pribadi dan publik"],
+                correct: 0,
+                explanation: "Klasifikasi pesan organisasi mencakup: Pesan Operasional (Task), Pemeliharaan (Maintenance), Inovasi (Innovation), dan Integrasi (Integrative)."
+            },
+            {
+                id: 113,
+                question: "Jenis pesan yang sering juga disebut pesan sosialisasi atau pesan relasional ialah ...",
+                options: ["pesan operasional", "pesan pemeliharaan", "pesan inovasi", "pesan integrasi"],
+                correct: 1,
+                explanation: "Pesan pemeliharaan (maintenance message) ditujukan untuk menjaga hubungan antarmanusia dan iklim sosial."
+            },
+            {
+                id: 114,
+                question: "Salah satu kriteria dari pesan efektif adalah pesan yang menarik atau memikat biasanya sangat menyentuh hati penerimanya. Pesan tersebut dikenal dengan kriteria ...",
+                options: ["concise", "credible", "relevant", "compelling"],
+                correct: 3,
+                explanation: "Compelling berarti pesan berdaya pikat tinggi, menggugah, dan menarik perhatian penerimanya."
+            },
+            {
+                id: 115,
+                question: "Sebuah organisasi di Amerika yang menyebut diri sebagai Center for Health and Gender Equity mensyaratkan bahwa sebuah pesan yang efektif dan kuat harus memenuhi lima kriteria, di antaranya adalah ...",
+                options: ["credible, concise, dan relevant", "credible dan concise saja", "relevant saja", "ringkas dan mahal"],
+                correct: 0,
+                explanation: "Kriteria pesan efektif mencakup Credible (dapat dipercaya), Concise (padat/jelas), dan Relevant (sesuai kebutuhan)."
+            },
+            {
+                id: 116,
+                question: "Tiga saluran komunikasi yaitu face to face conversation, video conferencing dan telephone conversation dipercaya memiliki kekayaan yang paling tinggi, karena ...",
+                options: ["ketiga saluran dimiliki oleh para pemodal", "ketiga saluran sangat mahal sehingga hanya digunakan oleh pemodal besar", "ketiga saluran dimiliki perusahaan sehingga karyawan dapat menggunakan", "penerima ataupun pengirim pesan dapat melihat atau mendengar semua yang diucapkan termasuk bahasa tubuh dan nada suara"],
+                correct: 3,
+                explanation: "Saluran kaya (rich media) memungkinkan transmisi isyarat nonverbal, nada suara, serta umpan balik instan."
+            },
+            {
+                id: 117,
+                question: "Daft dan Lengel menjelaskan bahwa media richness atau kekayaan media memberikan sebuah kerangka untuk menggambarkan kemampuan alat komunikasi dengan ciri-ciri sebagai berikut ...",
+                options: ["mampu mengirimkan pesan seluas mungkin", "mampu memproduksi ulang informasi yang sudah dikirim tanpa distorsi/gangguan", "menggunakan teknologi canggih", "melibatkan banyak sumber daya yang dimiliki oleh organisasi"],
+                correct: 1,
+                explanation: "Kekayaan media memfasilitasi klarifikasi ambiguasi dan reproduksi makna informasi tanpa timbul distorsi."
+            },
+            {
+                id: 118,
+                question: "Salah satu kriteria dari pesan efektif adalah pesan yang ringkas, jelas dan sederhana yaitu pesan 'renyah' atau tidak keras yang dapat dimengerti dan mudah diingat oleh orang secara umum. Pesan tersebut dikenal dengan kriteria ...",
+                options: ["concise", "credible", "relevant", "compelling"],
+                correct: 0,
+                explanation: "Concise berarti ringkas, padat, dan langsung pada inti tanpa kata-kata yang mubazir."
+            },
+            {
+                id: 119,
+                question: "Tiga saluran komunikasi yang dipercaya memiliki kekayaan yang paling tinggi adalah ...",
+                options: ["email, social media, dan video conferencing", "face-to-face conversation, video conferencing, dan handheld devices", "email, microblog, dan social media", "face-to-face conversation, video conferencing, dan telephone conversation"],
+                correct: 3,
+                explanation: "Saluran dengan media richness tertinggi adalah Tatap Muka, Video Conference, dan Telepon."
+            },
+            {
+                id: 120,
+                question: "Definisi kepemimpinan menurut Gibson dan Hodgetts (1991) adalah ...",
+                options: ["proses aktivitas bawahan dalam menyelesaikan pekerjaannya", "aktivitas organisasi yang dilakukan untuk mencapai kepentingan sebagian orang", "proses memengaruhi seluruh anggota organisasi untuk mencapai tujuan organisasi", "aktivitas organisasi dengan dipimpin seorang individu"],
+                correct: 2,
+                explanation: "Gibson & Hodgetts mendefinisikan kepemimpinan sebagai proses memengaruhi orang lain dalam rangka pencapaian sasaran organisasi."
+            },
+            {
+                id: 121,
+                question: "Secara konseptual, Spikes Papa (1993) mendefinisikan bahwa kepemimpinan adalah ...",
+                options: ["proses memengaruhi, baik individual, kelompok, maupun keseluruhan organisasi, mencapai suatu tujuan yang telah ditetapkan", "kemampuan memotivasi dan membangun kepercayaan diri sehingga anggotanya bersedia mengerahkan tenaga dan pikiran secara penuh pada tujuan yang dibangun sang pemimpin", "kemampuan memberi pengarahan dan mengoordinasi kegiatan-kegiatan kelompok yang telah ditentukan", "proses mengarahkan individu-individu, kelompok, dan keseluruhan yang ada dalam suatu organisasi demi tercapainya tujuan dan menjaga tindakan untuk mendukung tujuan yang telah disepakati bersama"],
+                correct: 0,
+                explanation: "Spikes Papa mendefinisikan kepemimpinan sebagai proses pemengaruhan antartingkat (individu, kelompok, organisasi) untuk tujuan spesifik."
+            },
+            {
+                id: 122,
+                question: "Barry Z Posner telah melakukan wawancara dengan 75.000 orang dari enam benua mengenai kepemimpinan yang diharapkan dan hasilnya karakter pemimpin yang jujur menempati urutan pertama, hal ini dikarenakan ...",
+                options: ["sifat yang jarang ditemui", "sifat yang membawa organisasi berhasil", "jujur dapat meningkatkan pendapatan organisasi", "pemimpin yang jujur dapat bekerja demi kepentingan bawahan"],
+                correct: 1,
+                explanation: "Kejujuran mendasari kepercayaan (trust) yang menjadi pondasi utama keberhasilan organisasi."
+            },
+            {
+                id: 123,
+                question: "Gibson dan Hodgetts (1991: 177) mengartikan kepemimpinan sebagai ...",
+                options: ["kemampuan memotivasi dan membangun kepercayaan diri sehingga anggotanya bersedia mengerahkan tenaga dan secara penuh pada tujuan yang dibangun sang pemimpin", "kemampuan memberi pengarahan dan mengoordinasi kegiatan-kegiatan kelompok yang telah ditentukan", "proses mengarahkan individu-individu, kelompok, dan keseluruhan yang ada dalam suatu organisasi demi tercapainya tujuan dan menjaga tindakan untuk mendukung tujuan yang telah disepakati bersama", "proses memengaruhi, baik individual, kelompok, maupun keseluruhan organisasi, untuk mencapai suatu tujuan yang telah ditetapkan"],
+                correct: 3,
+                explanation: "Kepemimpinan diartikan sebagai proses memengaruhi anggota pada berbagai level organisasi demi mewujudkan sasaran."
+            },
+            {
+                id: 124,
+                question: "Visi organisasi merupakan rancangan dan arah dari pemimpin yang ingin diwujudkannya. Fungsi kepemimpinan dalam mewujudkan visi bisa dilihat sebagai berikut ...",
+                options: ["meminta seluruh anggota untuk menghafalkan visi setiap waktu", "menggaungkan visi terus-menerus kepada seluruh anggota", "menurunkan visi menjadi rencana-rencana yang berjangka untuk pencapaiannya", "menurunkan visi menjadi kegiatan-kegiatan rutin dan aksidental"],
+                correct: 2,
+                explanation: "Mewujudkan visi membutuhkan penterjemahan visi abstrak menjadi strategi dan rencana aksi berjangka (operasional)."
+            },
+            {
+                id: 125,
+                question: "Iklim kerja merupakan persepsi yang dimiliki oleh karyawan dalam lingkungan kerja. Fungsi pemimpin berkaitan dengan iklim kerja, antara lain adalah menyediakan ...",
+                options: ["imbalan yang layak bagi anggota yang loyal", "sistem kerja yang mudah dengan menyediakan informasi yang cukup", "tempat atau ruang kerja yang sejuk dan nyaman", "lingkungan kerja yang ramah, aman, dan suasana yang hangat di anggota"],
+                correct: 3,
+                explanation: "Peran pemimpin terhadap iklim kerja adalah menciptakan atmosfer kerja yang ramah, aman, kondusif, dan saling mendukung."
+            },
+            {
+                id: 126,
+                question: "Pada kategori task leadership dalam teori fungsional, pemimpin memiliki tugas di antaranya ...",
+                options: ["inisiatif, memotivasi, menyimpulkan, apresiasi", "managing, organizing, motivating, monitoring", "inisiatif, koordinasi, menyimpulkan, elaborasi", "making decisions, managing, evaluating, monitoring"],
+                correct: 2,
+                explanation: "Perilaku Task Leadership meliputi memprakarsai (inisiatif), mengoordinasikan, mengelaborasi, dan menyimpulkan."
+            },
+            {
+                id: 127,
+                question: "Berikut ini merupakan fungsi dari kepemimpinan di antaranya ialah ...",
+                options: ["mewujudkan visi, memberi dukungan dan semangat, dan menjadi role model", "menjadi role model, mempengaruhi & memberikan inspirasi", "mewujudkan visi, memberikan instruksi & memberikan reward", "menjadi role model, memberikan instruksi & memberi dukungan"],
+                correct: 0,
+                explanation: "Fungsi utama kepemimpinan: Eksekusi Visi, Pemberi Motivasi/Dukungan, serta Teladan (Role Model)."
+            },
+            {
+                id: 128,
+                question: "Eric Papp mengemukakan karakter pemimpin seharusnya meliputi empat unsur yang tercakup dalam istilah CARE, yaitu Climate, Accountability, Recognition, dan ...",
+                options: ["Effective", "Empowerment", "Emphaty", "Endegeous"],
+                correct: 1,
+                explanation: "Akronim CARE Eric Papp: Climate, Accountability, Recognition, dan Empowerment (Pemberdayaan)."
+            },
+            {
+                id: 129,
+                question: "Kouzes dan Barry Z. Posner melakukan wawancara kepada 75.000 orang dari enam benua tentang kepemimpinan yang diharapkan dan karakter pemimpin yang seharusnya dimiliki. Ada empat terbesar karakter pemimpin yang diharapkan secara berurutan, yaitu ...",
+                options: ["jujur, inspiratif, cakap, dan visioner", "jujur, visioner, inspiratif, dan cakap", "visioner, inspiratif, cakap, dan jujur", "visioner, jujur, cakap, dan inspiratif"],
+                correct: 1,
+                explanation: "4 Karakter Pemimpin Ideal Kouzes & Posner: 1. Honest (Jujur), 2. Forward-looking (Visioner), 3. Inspiring (Inspiratif), 4. Competent (Cakap)."
+            },
+            {
+                id: 130,
+                question: "Teori fungsional melihat kepemimpinan dari perilaku leadership, yakni perilaku yang tampak. B&H mencatat ...",
+                options: ["membimbing, memengaruhi, mengarahkan, atau mengontrol orang lain", "mengambil keputusan dan melakukan pengawasan", "mengambil keputusan, memerintah, menghukum, dan memberi reward", "membimbing, memengaruhi, dan menganalisis perilaku"],
+                correct: 0,
+                explanation: "Perilaku kepemimpinan fungsional berwujud nyata dalam kegiatan membimbing, memengaruhi, mengarahkan, dan mengontrol."
+            },
+            {
+                id: 131,
+                question: "Ada beberapa teori kepemimpinan, salah satunya adalah teori kepemimpinan transformasional. Menurut Z Lou dkk (2015: 24), pemimpin transformasional memiliki karakteristik ...",
+                options: ["adaptif pada lingkungan, karisma sosial, motivasi inspirasional, stimulasi intelektual, dan pertimbangan personal", "karisma sosial dan motivasi saja", "stimulasi intelektual saja", "otoriter dan tegas saja"],
+                correct: 0,
+                explanation: "Kepemimpinan Transformasional mencakup 4I: Idealized Influence (karisma), Inspirational Motivation, Intellectual Stimulation, dan Individualized Consideration."
+            },
+            {
+                id: 132,
+                question: "Kemampuan pimpinan dalam membuat rencana kerja jangka panjang masuk dalam jenjang kepemimpinan pada level ...",
+                options: ["pertama", "kedua", "ketiga", "semua level"],
+                correct: 2,
+                explanation: "Perencanaan strategis jangka panjang merupakan domain tanggung jawab Manajemen Puncak / Level 3 (Top Management)."
+            },
+            {
+                id: 133,
+                question: "Kemampuan manusia (skill) dalam menerjemahkan kebutuhan atasan, berupa output serta kemampuan dalam memahami dan memberdayakan bawahan sesuai dengan kompetensinya, merupakan salah satu jenjang kepemimpinan pada ...",
+                options: ["level pertama", "level kedua", "level ketiga", "semua level"],
+                correct: 1,
+                explanation: "Manajemen Tingkat Menengah / Level 2 (Middle Management) menjembatani arahan atasan puncak dengan mengeksekusi pemberdayaan staf."
+            },
+            {
+                id: 134,
+                question: "Menurut Gibson, level keterampilan teknis dipimpin oleh seorang supervisi yang merupakan level pertama dalam manajemen. Kompetensi yang harus dimiliki oleh pemimpin pada level ini adalah ...",
+                options: ["mampu membuat rencana ke depan, mengetahui situasi dan peta, serta bisa menganalisis", "mampu menguasai produk (barang dan jasa) yang akan dijualnya", "mampu memberikan ide yang akan diterjemahkan oleh anggota", "kemampuan memberdayakan anak buah atau karyawan sesuai kompetensi yang dibutuhkan organisasi"],
+                correct: 1,
+                explanation: "Level Pertama (First-line supervisor) membutuhkan penguasaan keterampilan teknis operasional dan spesifikasi produk/jasa."
+            },
+            {
+                id: 135,
+                question: "Kidung ditugaskan mempresentasikan laporan penting. Jika berhasil berpotensi mendapat apresiasi, tetapi ia cemas takut salah dan dianggap tidak kompeten. Ia berpikir apakah pantas melakukan presentasi namun juga bisa saja melakukan kesalahan. Jenis konflik tersebut masuk ke dalam konflik intrapersonal dengan pola ...",
+                options: ["pola konflik mendekat mendekat", "pola konflik menghindar menghindar", "pola konflik mendekat menghindar", "pola konflik mendekat menolak"],
+                correct: 2,
+                explanation: "Pola mendekat-menghindar (approach-avoidance) terjadi akibat hadirnya daya tarik positif dan dorongan kecemasan negatif dalam satu pilihan."
+            }
+        ];
+
+        // ============================================================
+        //  2. KONFIGURASI & STATE APLIKASI
+        // ============================================================
+        const TOTAL = MASTER_QUESTIONS.length;
+        let currentQuestions = [];
+        let currentIndex = 0;
+        let answers = {};
+        let results = {};
+        let mode = 'all';
+        let selectedCount = 10;
+        let rangeStart = 1;
+        let rangeEnd = TOTAL;
+        let pickedSet = new Set();
+        let darkMode = localStorage.getItem('darkMode') === 'true';
+        let examMode = false;
+
+        // ============================================================
+        //  3. ELEMENT REF (DOM)
+        // ============================================================
+        const $ = id => document.getElementById(id);
+        const setupPanel = $('setupPanel');
+        const questionPanel = $('questionPanel');
+        const resultPanel = $('resultPanel');
+        const reviewPanel = $('reviewPanel');
+        const totalSoalDisplay = $('totalSoalDisplay');
+        const progressText = $('progressText');
+        const correctCount = $('correctCount');
+        const wrongCount = $('wrongCount');
+        const scorePercent = $('scorePercent');
+        const progressFill = $('progressFill');
+        const qNumDisplay = $('qNumDisplay');
+        const qIndexDisplay = $('qIndexDisplay');
+        const questionText = $('questionText');
+        const optionsContainer = $('optionsContainer');
+        const feedback = $('feedback');
+        const feedbackAnswer = $('feedbackAnswer');
+        const feedbackExplanation = $('feedbackExplanation');
+        const nextQuestionBtn = $('nextQuestionBtn');
+        const prevBtn = $('prevBtn');
+        const nextBtn = $('nextBtn');
+        const questionNav = $('questionNav');
+        const startBtn = $('startBtn');
+        const resetBtn = $('resetBtn');
+        const themeToggle = $('themeToggle');
+        const modeOptions = $('modeOptions');
+        const reviewList = $('reviewList');
+        const closeReviewBtn = $('closeReviewBtn');
+        const reviewToggleBtn = $('reviewToggleBtn');
+        const finalScore = $('finalScore');
+        const finalCorrect = $('finalCorrect');
+        const finalWrong = $('finalWrong');
+        const retryWrongBtn = $('retryWrongBtn');
+        const resultResetBtn = $('resultResetBtn');
+        const resultReviewBtn = $('resultReviewBtn');
+        const restartFromQuestionBtn = $('restartFromQuestionBtn');
+
+        // ============================================================
+        //  4. UTILITY FUNCTIONS
+        // ============================================================
+        function shuffle(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function getLetter(i) { return String.fromCharCode(65 + i); }
+
+        // ============================================================
+        //  5. DARK MODE MANAGEMENT
+        // ============================================================
+        function applyTheme() {
+            document.documentElement.classList.toggle('dark', darkMode);
+            themeToggle.textContent = darkMode ? '☀️' : '🌙';
+            localStorage.setItem('darkMode', darkMode);
+        }
+        themeToggle.addEventListener('click', () => { 
+            darkMode = !darkMode;
+            applyTheme(); 
+        });
+        applyTheme();
+
+        // ============================================================
+        //  6. SETUP PANEL CONTROL
+        // ============================================================
+        function renderSetupOptions() {
+            const html = [];
+            if (mode === 'all') {
+                html.push(`<p style="color:var(--text-secondary);">✅ Akan menampilkan seluruh <strong>${TOTAL}</strong> soal.</p>`);
+            }
+            if (mode === 'count') {
+                html.push(`
+                    <label>Jumlah soal:
+                        <select id="countSelect">
+                            ${[5,10,15,20,30,50,75,100].map(n => `<option value="${n}" ${n===selectedCount?'selected':''}>${n}</option>`).join('')}
+                        </select>
+                    </label>
+                `);
+            }
+            if (mode === 'range') {
+                html.push(`
+                    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+                        <label>Dari:
+                            <input type="number" id="rangeStart" value="${rangeStart}" min="1" max="${TOTAL}" style="width:70px;">
+                        </label>
+                        <label>Sampai:
+                            <input type="number" id="rangeEnd" value="${rangeEnd}" min="1" max="${TOTAL}" style="width:70px;">
+                        </label>
+                        <span style="font-size:0.85rem;color:var(--text-secondary);">(1-${TOTAL})</span>
+                    </div>
+                `);
+            }
+            if (mode === 'pick') {
+                html.push(`
+                    <div style="display:flex;flex-wrap:wrap;gap:4px;max-height:200px;overflow-y:auto;padding:8px;border:1px solid var(--border);border-radius:8px;">
+                        ${Array.from({length:TOTAL}, (_,i) => {
+                            const num = i+1;
+                            const checked = pickedSet.has(num) ? 'checked' : '';
+                            return `<label style="display:flex;align-items:center;gap:4px;font-size:0.8rem;cursor:pointer;padding:2px 6px;border-radius:4px;background:var(--gray-light);">
+                                <input type="checkbox" value="${num}" ${checked} class="pick-checkbox">
+                                ${num}
+                            </label>`;
+                        }).join('')}
+                    </div>
+                    <div style="margin-top:6px;">
+                        <button class="btn btn-sm btn-outline" id="selectAllPick">Pilih Semua</button>
+                        <button class="btn btn-sm btn-outline" id="deselectAllPick">Hapus Semua</button>
+                    </div>
+                `);
+            }
+            if (mode === 'random') {
+                html.push(`
+                    <label>Jumlah soal acak:
+                        <input type="number" id="randomCount" value="${selectedCount}" min="1" max="${TOTAL}" style="width:80px;">
+                    </label>
+                    <span style="font-size:0.85rem;color:var(--text-secondary);">(maks ${TOTAL})</span>
+                `);
+            }
+            modeOptions.innerHTML = html.join('');
+
+            if (mode === 'count') {
+                const sel = document.getElementById('countSelect');
+                if (sel) sel.addEventListener('change', e => { selectedCount = parseInt(e.target.value) || 10; });
+            }
+            if (mode === 'range') {
+                const s = document.getElementById('rangeStart');
+                const e = document.getElementById('rangeEnd');
+                if (s) s.addEventListener('change', () => { rangeStart = Math.min(parseInt(s.value) || 1, TOTAL); });
+                if (e) e.addEventListener('change', () => { rangeEnd = Math.min(parseInt(e.value) || TOTAL, TOTAL); });
+            }
+            if (mode === 'pick') {
+                document.querySelectorAll('.pick-checkbox').forEach(cb => {
+                    cb.addEventListener('change', () => {
+                        const num = parseInt(cb.value);
+                        if (cb.checked) pickedSet.add(num);
+                        else pickedSet.delete(num);
+                    });
+                });
+                const selAll = document.getElementById('selectAllPick');
+                const deselAll = document.getElementById('deselectAllPick');
+                if (selAll) selAll.addEventListener('click', () => {
+                    document.querySelectorAll('.pick-checkbox').forEach(cb => { 
+                        cb.checked = true;
+                        pickedSet.add(parseInt(cb.value)); 
+                    });
+                });
+                if (deselAll) deselAll.addEventListener('click', () => {
+                    document.querySelectorAll('.pick-checkbox').forEach(cb => { 
+                        cb.checked = false;
+                        pickedSet.delete(parseInt(cb.value)); 
+                    });
+                });
+            }
+            if (mode === 'random') {
+                const rc = document.getElementById('randomCount');
+                if (rc) rc.addEventListener('change', () => { selectedCount = Math.min(parseInt(rc.value) || 5, TOTAL); });
+            }
+        }
+
+        document.querySelectorAll('#modeTabs .btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('#modeTabs .btn').forEach(b => b.classList.remove('active-mode'));
+                btn.classList.add('active-mode');
+                mode = btn.dataset.mode;
+                if (mode !== 'pick') pickedSet.clear();
+                renderSetupOptions();
+            });
+        });
+
+        // ============================================================
+        //  7. SOAL GENERATOR (PENGACAKAN OPSI & DISTRIBUSI KUNCI)
+        // ============================================================
+        function buildQuestions(source) {
+            const result = [];
+            const targetPositions = [];
+            for (let i = 0; i < source.length; i++) {
+                targetPositions.push(i % 4);
+            }
+            shuffle(targetPositions);
+
+            for (let i = 0; i < source.length; i++) {
+                const q = source[i];
+                const opts = q.options.slice();
+                const correctText = opts[q.correct];
+                
+                const targetPos = targetPositions[i % targetPositions.length];
+                const wrongOpts = opts.filter(o => o !== correctText);
+                shuffle(wrongOpts);
+                
+                const newOpts = [];
+                for (let p = 0; p < 4; p++) {
+                    if (p === targetPos) newOpts[p] = correctText;
+                    else newOpts[p] = wrongOpts.pop();
+                }
+                
+                result.push({
+                    id: q.id,
+                    question: q.question,
+                    options: newOpts,
+                    correct: targetPos,
+                    explanation: q.explanation || 'Penjelasan tidak tersedia.'
+                });
+            }
+            return result;
+        }
+
+        // ============================================================
+        //  8. LOGIKA MULAI LATIHAN
+        // ============================================================
+        function startPractice() {
+            let pool = [];
+            if (mode === 'all') {
+                pool = MASTER_QUESTIONS.slice();
+            } else if (mode === 'count') {
+                const count = Math.min(selectedCount, TOTAL);
+                pool = shuffle(MASTER_QUESTIONS.slice()).slice(0, count);
+            } else if (mode === 'range') {
+                const start = Math.max(1, Math.min(rangeStart, TOTAL));
+                const end = Math.min(Math.max(rangeEnd, start), TOTAL);
+                pool = MASTER_QUESTIONS.slice(start - 1, end);
+            } else if (mode === 'pick') {
+                const ids = Array.from(pickedSet).filter(n => n >= 1 && n <= TOTAL);
+                if (ids.length === 0) { alert('Silakan pilih setidaknya 1 soal.'); return; }
+                pool = ids.map(id => MASTER_QUESTIONS[id - 1]).filter(Boolean);
+            } else if (mode === 'random') {
+                const count = Math.min(selectedCount, TOTAL);
+                pool = shuffle(MASTER_QUESTIONS.slice()).slice(0, count);
+            } else {
+                pool = MASTER_QUESTIONS.slice();
+            }
+            if (pool.length === 0) { alert('Tidak ada soal yang dipilih.'); return; }
+
+            currentQuestions = buildQuestions(pool);
+            shuffle(currentQuestions);
+            answers = {};
+            results = {};
+            currentIndex = 0;
+
+            setupPanel.classList.add('hidden');
+            questionPanel.classList.remove('hidden');
+            resultPanel.classList.add('hidden');
+            reviewPanel.classList.add('hidden');
+
+            renderQuestion();
+            renderNav();
+            updateStats();
+        }
+
+        // ============================================================
+        //  9. RENDER SOAL & JAWABAN
+        // ============================================================
+        function renderQuestion() {
+            const q = currentQuestions[currentIndex];
+            if (!q) return;
+
+            qNumDisplay.textContent = `Soal ${currentIndex + 1}`;
+            qIndexDisplay.textContent = `${currentIndex + 1} / ${currentQuestions.length}`;
+            questionText.textContent = q.question;
+
+            optionsContainer.innerHTML = '';
+            const selected = answers[currentIndex];
+            const isAnswered = selected !== undefined;
+            const isCorrect = results[currentIndex];
+
+            q.options.forEach((opt, idx) => {
+                const div = document.createElement('div');
+                div.className = 'option';
+                if (isAnswered) div.classList.add('disabled');
+                if (isAnswered && idx === q.correct) div.classList.add('correct');
+                if (isAnswered && selected === idx && !isCorrect) div.classList.add('wrong');
+                if (isAnswered && selected === idx) div.classList.add('selected');
+
+                const letter = document.createElement('span');
+                letter.className = 'letter';
+                letter.textContent = getLetter(idx);
+
+                const text = document.createElement('span');
+                text.className = 'text';
+                text.textContent = opt;
+
+                div.appendChild(letter);
+                div.appendChild(text);
+
+                if (!isAnswered) {
+                    div.addEventListener('click', () => handleAnswer(idx));
+                }
+                optionsContainer.appendChild(div);
+            });
+
+            feedback.classList.remove('show', 'correct', 'wrong');
+            if (isAnswered && !examMode) {
+                const isCorrectVal = results[currentIndex];
+                feedback.classList.add('show', isCorrectVal ? 'correct' : 'wrong');
+                const correctLetter = getLetter(q.correct);
+                const correctText = q.options[q.correct];
+                feedbackAnswer.textContent = isCorrectVal ?
+                    `✅ Benar! Jawaban: ${correctLetter}. ${correctText}` :
+                    `❌ Salah. Jawaban yang benar: ${correctLetter}. ${correctText}`;
+                feedbackExplanation.textContent = q.explanation || '';
+                nextQuestionBtn.disabled = false;
+            } else if (isAnswered && examMode) {
+                nextQuestionBtn.disabled = false;
+            } else {
+                nextQuestionBtn.disabled = true;
+            }
+
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === currentQuestions.length - 1;
+
+            questionPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            renderNav();
+            updateStats();
+        }
+
+        // ============================================================
+        //  10. HANDLE EKSEKUSI JAWABAN
+        // ============================================================
+        function handleAnswer(idx) {
+            if (answers[currentIndex] !== undefined) return;
+
+            const q = currentQuestions[currentIndex];
+            const isCorrect = idx === q.correct;
+            answers[currentIndex] = idx;
+            results[currentIndex] = isCorrect;
+
+            saveProgress();
+            renderQuestion();
+
+            if (examMode) {
+                feedback.classList.remove('show');
+                const allAnswered = currentQuestions.every((_, i) => answers[i] !== undefined);
+                if (allAnswered) showResult();
+                renderNav();
+                updateStats();
+                nextQuestionBtn.disabled = false;
+            } else {
+                nextQuestionBtn.disabled = false;
+                updateStats();
+            }
+        }
+
+        // ============================================================
+        //  11. NAVIGASI SOAL
+        // ============================================================
+        function goToQuestion(index) {
+            if (index < 0 || index >= currentQuestions.length) return;
+            currentIndex = index;
+            renderQuestion();
+        }
+
+        prevBtn.addEventListener('click', () => goToQuestion(currentIndex - 1));
+        nextBtn.addEventListener('click', () => goToQuestion(currentIndex + 1));
+        nextQuestionBtn.addEventListener('click', () => {
+            if (currentIndex < currentQuestions.length - 1) {
+                goToQuestion(currentIndex + 1);
+            } else {
+                const allAnswered = currentQuestions.every((_, i) => answers[i] !== undefined);
+                if (allAnswered) showResult();
+                else if (examMode) showResult();
+                else alert('Masih ada soal yang belum dijawab!');
+            }
+        });
+
+        // ============================================================
+        //  12. QUESTION NAV GRID
+        // ============================================================
+        function renderNav() {
+            questionNav.innerHTML = '';
+            currentQuestions.forEach((q, i) => {
+                const span = document.createElement('span');
+                span.className = 'qn';
+                span.textContent = i + 1;
+                if (i === currentIndex) span.classList.add('current');
+                else if (answers[i] !== undefined) {
+                    if (examMode) {
+                        span.classList.add('active');
+                    } else {
+                        span.classList.add(results[i] ? 'answered-correct' : 'answered-wrong');
+                    }
+                }
+                span.addEventListener('click', () => goToQuestion(i));
+                questionNav.appendChild(span);
+            });
+        }
+
+        // ============================================================
+        //  13. PERHITUNGAN STATISTIK
+        // ============================================================
+        function updateStats() {
+            const total = currentQuestions.length;
+            const answered = Object.keys(answers).length;
+            const correct = Object.values(results).filter(v => v === true).length;
+            const wrong = Object.values(results).filter(v => v === false).length;
+            const pct = total > 0 ? Math.round((correct / total) * 100) : 0;
+
+            progressText.textContent = `${answered}/${total}`;
+            correctCount.textContent = examMode ? '?' : correct;
+            wrongCount.textContent = examMode ? '?' : wrong;
+            scorePercent.textContent = examMode ? '?%' : pct + '%';
+            progressFill.style.width = total > 0 ? `${(answered/total)*100}%` : '0%';
+        }
+
+        // ============================================================
+        //  14. HASIL UJIAN / LATIHAN
+        // ============================================================
+        function showResult() {
+            const total = currentQuestions.length;
+            const correct = Object.values(results).filter(v => v === true).length;
+            const wrong = total - correct;
+            const pct = total > 0 ? Math.round((correct / total) * 100) : 0;
+
+            finalScore.textContent = pct + '%';
+            finalCorrect.textContent = correct;
+            finalWrong.textContent = wrong;
+
+            questionPanel.classList.add('hidden');
+            resultPanel.classList.remove('hidden');
+            reviewPanel.classList.add('hidden');
+            saveProgress();
+        }
+
+        // ============================================================
+        //  15. REVIEW PANEL
+        // ============================================================
+        function renderReview(filter = 'all') {
+            reviewList.innerHTML = '';
+            let items = currentQuestions.map((q, i) => ({ 
+                q, 
+                i, 
+                answered: answers[i] !== undefined, 
+                correct: results[i] 
+            }));
+
+            if (filter === 'correct') items = items.filter(it => it.answered && it.correct);
+            else if (filter === 'wrong') items = items.filter(it => it.answered && !it.correct);
+            else if (filter === 'unanswered') items = items.filter(it => !it.answered);
+
+            if (items.length === 0) {
+                reviewList.innerHTML = '<p style="color:var(--text-secondary);padding:12px;">Tidak ada soal dalam kategori ini.</p>';
+                return;
+            }
+
+            items.forEach(({ q, i, answered, correct }) => {
+                const div = document.createElement('div');
+                div.className = 'review-item';
+                
+                const num = document.createElement('span');
+                num.className = 'r-num';
+                num.textContent = i + 1;
+                
+                const qText = document.createElement('span');
+                qText.className = 'r-q';
+                qText.textContent = q.question;
+                
+                const ans = document.createElement('span');
+                ans.className = `r-answer ${answered ? (correct ? 'correct' : 'wrong') : ''}`;
+                if (answered) {
+                    const letter = getLetter(q.correct);
+                    ans.textContent = `✓ ${letter}. ${q.options[q.correct]}`;
+                } else {
+                    ans.textContent = '⏳ Belum dijawab';
+                }
+                
+                div.appendChild(num);
+                div.appendChild(qText);
+                div.appendChild(ans);
+                reviewList.appendChild(div);
+            });
+        }
+
+        reviewToggleBtn.addEventListener('click', () => {
+            if (reviewPanel.classList.contains('hidden')) {
+                reviewPanel.classList.remove('hidden');
+                renderReview('all');
+            } else {
+                reviewPanel.classList.add('hidden');
+            }
+        });
+
+        closeReviewBtn.addEventListener('click', () => { reviewPanel.classList.add('hidden'); });
+
+        document.querySelectorAll('.review-filter .btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.review-filter .btn').forEach(b => b.classList.remove('active-review-filter'));
+                btn.classList.add('active-review-filter');
+                renderReview(btn.dataset.filter);
+            });
+        });
+
+        // ============================================================
+        //  16. RESET & RETRY ACTIONS
+        // ============================================================
+        function resetAll() {
+            answers = {};
+            results = {};
+            currentQuestions = [];
+            currentIndex = 0;
+            setupPanel.classList.remove('hidden');
+            questionPanel.classList.add('hidden');
+            resultPanel.classList.add('hidden');
+            reviewPanel.classList.add('hidden');
+            localStorage.removeItem('quizProgress');
+            updateStats();
+        }
+
+        resetBtn.addEventListener('click', resetAll);
+        resultResetBtn.addEventListener('click', resetAll);
+        restartFromQuestionBtn.addEventListener('click', () => {
+            if (confirm('Yakin ingin mengulang latihan dari awal? Progress akan direset.')) {
+                resetAll();
+            }
+        });
+
+        retryWrongBtn.addEventListener('click', () => {
+            const wrongIndices = Object.keys(results).filter(k => results[k] === false).map(Number);
+            if (wrongIndices.length === 0) { alert('Tidak ada soal yang salah! 🎉'); return; }
+            const wrongQuestions = wrongIndices.map(i => currentQuestions[i]);
+            currentQuestions = buildQuestions(wrongQuestions);
+            shuffle(currentQuestions);
+            answers = {};
+            results = {};
+            currentIndex = 0;
+            resultPanel.classList.add('hidden');
+            questionPanel.classList.remove('hidden');
+            renderQuestion();
+            renderNav();
+            updateStats();
+        });
+
+        resultReviewBtn.addEventListener('click', () => {
+            resultPanel.classList.add('hidden');
+            reviewPanel.classList.remove('hidden');
+            renderReview('all');
+        });
+
+        // ============================================================
+        //  17. LOCALSTORAGE PROGRESS MANAGER
+        // ============================================================
+        function saveProgress() {
+            try {
+                const data = {
+                    questions: currentQuestions.map(q => q.id),
+                    answers: answers,
+                    results: results,
+                    index: currentIndex,
+                    mode: mode,
+                    timestamp: Date.now()
+                };
+                localStorage.setItem('quizProgress', JSON.stringify(data));
+            } catch (e) { /* ignore */ }
+        }
+
+        function loadProgress() {
+            try {
+                const raw = localStorage.getItem('quizProgress');
+                if (!raw) return false;
+                const data = JSON.parse(raw);
+                if (!data.questions || !data.answers) return false;
+                const ids = data.questions;
+                const valid = ids.every(id => MASTER_QUESTIONS.some(q => q.id === id));
+                if (!valid) return false;
+                const pool = ids.map(id => MASTER_QUESTIONS.find(q => q.id === id)).filter(Boolean);
+                if (pool.length === 0) return false;
+                currentQuestions = buildQuestions(pool);
+                const orderMap = {};
+                data.questions.forEach((id, idx) => { orderMap[id] = idx; });
+                currentQuestions.sort((a, b) => (orderMap[a.id] || 0) - (orderMap[b.id] || 0));
+                answers = data.answers || {};
+                results = data.results || {};
+                currentIndex = Math.min(data.index || 0, currentQuestions.length - 1);
+                return true;
+            } catch (e) { return false; }
+        }
+
+        // ============================================================
+        //  18. INITIALIZATION
+        // ============================================================
+        function init() {
+            totalSoalDisplay.textContent = TOTAL;
+            renderSetupOptions();
+
+            document.getElementById('examModeCheck').addEventListener('change', function() {
+                examMode = this.checked;
+            });
+
+            const hasProgress = loadProgress();
+            if (hasProgress && currentQuestions.length > 0) {
+                setupPanel.classList.add('hidden');
+                questionPanel.classList.remove('hidden');
+                renderQuestion();
+                renderNav();
+                updateStats();
+                const allAnswered = currentQuestions.every((_, i) => answers[i] !== undefined);
+                if (allAnswered && Object.keys(answers).length > 0) {
+                    showResult();
+                }
+            } else {
+                resetAll();
+            }
+
+            startBtn.addEventListener('click', () => {
+                if (Object.keys(answers).length > 0) {
+                    if (!confirm('Latihan sedang berjalan. Mulai ulang?')) return;
+                }
+                startPractice();
+            });
+
+            document.querySelector('#modeTabs .btn[data-mode="all"]')?.click();
+        }
+
+        init();
+        console.log(`✅ ${TOTAL} Soal Komunikasi Organisasi berhasil dimuat.`);
+    </script>
+</body>
+</html>
